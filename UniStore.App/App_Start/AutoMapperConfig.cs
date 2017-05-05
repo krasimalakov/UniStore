@@ -97,7 +97,6 @@
                     mapper.CreateMap<AddProductBM, Product>()
                         .ConstructUsing(x => new Product());
 
-                    // todo: construct is needed?
                     mapper.CreateMap<Product, EditProductVM>();
                     mapper.CreateMap<EditProductBM, EditProductVM>();
 

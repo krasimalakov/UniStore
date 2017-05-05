@@ -119,7 +119,6 @@
                 .ToList()
                 .Select(Mapper.Map<DetailsProductVM>);
 
-            // todo: move skip and take, and count too
             var productsCount = products.Count();
             var pageCount = productsCount / PageSize + (productsCount % PageSize > 0 ? 1 : 0);
 

@@ -1,0 +1,83 @@
+﻿@using UniStore.Models
+@model UniStore.Models.ViewModels.Department.DepartmentCategoriesVM
+
+@Html.AntiForgeryToken()
+
+<h4>@Model.Name</h4>
+
+<table class="table table-striped">
+    <tr>
+        <th>Category</th>
+        <th>Subcategories</th>
+        <th></th>
+    </tr>
+    @foreach (var category in Model.Categories)
+    {
+        <tr>
+            <td>
+                @Ajax.ActionLink(category.Name, "Details", "Categories",
+                    new
+                    {
+                        departmentId = category.DepartmentId,
+                        categoryId = category.Id
+                    },
+                    new AjaxOptions
+                    {
+                        UpdateTargetId = Constants.ContainerBodyId,
+                        HttpMethod = "GET",
+                        OnSuccess = "setUrl",
+                        LoadingElementId = Constants.AjaxLoadingId,
+                        LoadingElementDuration = 400
+                    })
+            </td>
+            <td>@category.SubCategoriesCount</td>
+            <td>
+                @Ajax.ActionLink("Rename", "Rename", "Categories",
+                    new
+                    {
+                        departmentId = Model.Id,
+                        id = category.Id
+                    },
+                    new AjaxOptions
+                    {
+                        UpdateTargetId = Constants.ContainerBodyId,
+                        HttpMethod = "GET",
+                        LoadingElementId = Constants.AjaxLoadingId,
+                        LoadingElementDuration = 400
+                    },
+                    new { @class = "btn btn-smallest btn-warning" })
+
+                @Ajax.ActionLink("Delete", "Delete", "Categories",
+                    new
+                    {
+                        departmentId = Model.Id,
+                        id = category.Id
+                    },
+                    new AjaxOptions
+                    {
+                        UpdateTargetId = Constants.ContainerBodyId,
+                        HttpMethod = "POST",
+                        Confirm = $"Delete category {category.Name}?",
+                        LoadingElementId = Constants.AjaxLoadingId,
+                        LoadingElementDuration = 400
+                    },
+                    new { @class = "btn btn-smallest btn-danger" })
+            </td>
+        </tr>
+    }
+</table>
+
+@Ajax.ActionLink("Add category", "Add", "Categories",
+    new
+    {
+        departmentId = Model.Id
+    },
+    new AjaxOptions
+    {
+        UpdateTargetId = Constants.ContainerBodyId,
+        HttpMethod = "GET",
+        LoadingElementId = Constants.AjaxLoadingId,
+        LoadingElementDuration = 400
+    },
+    new { @class = "btn btn-primary" })
+@Html.Partial("Partials/AjaxActionLinks/BackToDepartmentsList")

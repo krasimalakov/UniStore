@@ -1,0 +1,193 @@
+﻿@using UniStore.App.Utility
+@using UniStore.Models
+@model UniStore.Models.ViewModels.ShoppingCard.ShoppingCardVM
+<div>
+    <h2 id="test">Shopping card</h2>
+    <hr />
+
+    <div>
+        <div class="row">
+            <div class="col-sm-12 col-md-10 offset-1">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th colspan="2">Product</th>
+                            <th>Quantity</th>
+                            <th class="text-center">Price</th>
+                            <th class="text-center">Total</th>
+                            <th> </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var purchase in Model.Purchases)
+                        {
+                            var imageUrl = Utility.ImageAbsolutePath(purchase.Product.ImageUrl);
+                            <tr>
+                                <td>
+                                    <img class="media" src="@imageUrl" style="height: 72px; width: auto;" alt="no image!">
+                                </td>
+                                <td>
+                                    <h4>
+                                        <a href="#">@purchase.Product.Name</a>
+                                    </h4>
+                                    <span>Status: </span><span class="text-success">
+                                        @if (purchase.Product.Quantity >= purchase.Quantity && purchase.Product.Quantity > 0)
+                                        {
+                                            <strong>In Stock</strong>
+                                        }
+                                        else
+                                        {
+                                            <strong style="color: red;">it's not on stock</strong>
+                                        }
+                                    </span>
+                                </td>
+                                <td class="text-center col-md-1">
+                                    <div class="form-group">
+
+                                        <input type="number" name="Quantity" value="@purchase.Quantity" class="form-control update-quantity"
+                                               pid="@purchase.Id" pattern="[0-9]*" inputmode="numeric" />
+
+                                    </div>
+                                </td>
+                                <td class="text-center">
+                                    <strong>@purchase.Price</strong>
+                                </td>
+                                <td class="text-center">
+                                    <strong>@purchase.Value</strong>
+                                </td>
+                                <td>
+                                    <button class="btn btn-smallest btn-danger delete-purchase" pid="@purchase.Id" type="button">
+                                        <span class="fa fa-remove"></span> Remove
+                                    </button>
+                                </td>
+                            </tr>
+                        }
+
+
+                        <tr>
+                            <td> </td>
+                            <td> </td>
+                            <td> </td>
+                            <td>
+                                <h3>Total</h3>
+                            </td>
+                            <td class="text-right">
+                                <h3>
+                                    <strong>@Model.Total</strong>
+                                </h3>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="4"></td>
+                            <td>
+                                @Ajax.ActionLink("Finish the order", "FinishOrder", "Store",
+                                new
+                                {
+                                    Model.SearchProductsBM.Page,
+                                    Model.SearchProductsBM.SubCategoryId,
+                                    Model.SearchProductsBM.CategoryId,
+                                    Model.SearchProductsBM.DepartmentId,
+                                    Model.SearchProductsBM.Order,
+                                    Model.SearchProductsBM.OrderBy,
+                                    Model.SearchProductsBM.Search
+                                },
+                                new AjaxOptions
+                                {
+                                    UpdateTargetId = Constants.ContainerProductsId,
+                                    HttpMethod = "GET",
+                                    LoadingElementId = Constants.AjaxLoadingId,
+                                    LoadingElementDuration = 400
+                                },
+                                new { @class = "btn btn-primary" })
+                            </td>
+                            <td>
+                                @Ajax.ActionLink(" Continue Shopping", "ProductsList", "Store",
+                                new
+                                {
+                                    Model.SearchProductsBM.DepartmentId,
+                                    Model.SearchProductsBM.CategoryId,
+                                    Model.SearchProductsBM.SubCategoryId,
+                                    Model.SearchProductsBM.Search,
+                                    Model.SearchProductsBM.Page,
+                                    Model.SearchProductsBM.Order,
+                                    Model.SearchProductsBM.OrderBy
+                                },
+                                new AjaxOptions
+                                {
+                                    UpdateTargetId = Constants.ContainerProductsId,
+                                    HttpMethod = "GET",
+                                    LoadingElementId = Constants.AjaxLoadingId,
+                                    LoadingElementDuration = 400
+                                },
+                                new { @class = "btn btn-primary fa fa-shopping-cart" })
+                            </td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+
+    @*Shopping cart Update*@
+    <div style="display: none !important">
+        @using (Ajax.BeginForm("UpdateShoppingCart", "Store", null,
+                new AjaxOptions
+                {
+                    HttpMethod = "POST",
+                    InsertionMode = InsertionMode.Replace,
+                    UpdateTargetId = Constants.ContainerProductsId,
+                    LoadingElementId = Constants.AjaxLoadingId,
+                    LoadingElementDuration = 400
+                },
+                null))
+        {
+            @Html.HiddenFor(model => model.SearchProductsBM.DepartmentId)
+            @Html.HiddenFor(model => model.SearchProductsBM.CategoryId)
+            @Html.HiddenFor(model => model.SearchProductsBM.SubCategoryId)
+            @Html.HiddenFor(model => model.SearchProductsBM.Search)
+            @Html.HiddenFor(model => model.SearchProductsBM.Page)
+            @Html.HiddenFor(model => model.SearchProductsBM.Order)
+            @Html.HiddenFor(model => model.SearchProductsBM.OrderBy)
+
+            @Html.AntiForgeryToken()
+
+            <input type="number" id="purchaseId" name="purchaseId" value="" />
+            <input type="number" id="quantity" name="quantity" value="" />
+            <div class="input-group">
+                <button id="update-shopping-cart" type="submit">Update</button>
+            </div>
+        }
+    </div>
+
+</div>
+<script>
+    $(function () {
+        $(".update-quantity").bind("change",
+            function () {
+                const value = this.value;
+                const id = $(this).attr("pid");
+                $("input[name=purchaseId]").val(id);
+                $("input[name=quantity]").val(value);
+                $("#update-shopping-cart").click();
+            });
+
+        $(".delete-purchase").bind("click",
+            function () {
+                const id = $(this).attr("pid");
+                $("input[name=purchaseId]").val(id);
+                $("input[name=quantity]").val(0);
+                $("#update-shopping-cart").click();
+            });
+
+        //$("#finish-order").bind("click",
+        //    function () {
+        //        $("#finish-order-form").attr("style", "");
+        //        $("#delivery-address").focus();
+        //        $("#finish-order").attr("style", "display:none");
+
+        //    });
+    });
+</script>

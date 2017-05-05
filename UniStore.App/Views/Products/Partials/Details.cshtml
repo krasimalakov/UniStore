@@ -1,0 +1,20 @@
+﻿@using UniStore.App.Utility
+@model UniStore.Models.ViewModels.Product.DetailsProductVM
+
+<div>
+    @{ var imageUrl = Utility.ImageAbsolutePath(Model.ImageUrl); }
+
+    <div class="card">
+        <div class="card-img-container">
+            <img class="card-img-top details-image" src="@imageUrl" alt="No sample image!">
+        </div>
+        <div class="card-block">
+            <h4 class="card-title">@Model.Name</h4>
+            <p class="card-text">
+                Price: <strong>@Model.Price</strong>
+            </p>
+            <p class="card-text">@Model.Description</p>
+        </div>
+
+    </div>
+</div>

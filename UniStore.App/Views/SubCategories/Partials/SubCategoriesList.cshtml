@@ -1,0 +1,88 @@
+﻿@using UniStore.Models
+@model UniStore.Models.ViewModels.Category.CategorySubCategoriesVM
+
+@Html.AntiForgeryToken()
+
+<h4>@Model.DepartmentName &raquo; <span style="color: #8b0000">@Model.Name</span></h4>
+
+<table class="table table-striped">
+    <tr>
+        <th>Subcategory</th>
+        <th>Products</th>
+        <th></th>
+    </tr>
+    @foreach (var subCategory in Model.SubCategories)
+    {
+        <tr>
+            <td>
+                @Ajax.ActionLink(subCategory.Name, "Details", "SubCategories",
+                    new
+                    {
+                        departmentId = Model.DepartmentId,
+                        categoryId = Model.Id,
+                        id = subCategory.Id
+                    },
+                    new AjaxOptions
+                    {
+                        UpdateTargetId = Constants.ContainerBodyId,
+                        HttpMethod = "GET",
+                        OnSuccess = "setUrl",
+                        LoadingElementId = Constants.AjaxLoadingId,
+                        LoadingElementDuration = 400
+                    })
+            </td>
+            <td>@subCategory.ProductsCount</td>
+            <td>
+                @Ajax.ActionLink("Rename", "Rename", "SubCategories",
+                    new
+                    {
+                        departmentId = Model.DepartmentId,
+                        categoryId = Model.Id,
+                        id = subCategory.Id
+                    },
+                    new AjaxOptions
+                    {
+                        UpdateTargetId = Constants.ContainerBodyId,
+                        HttpMethod = "GET",
+                        LoadingElementId = Constants.AjaxLoadingId,
+                        LoadingElementDuration = 400
+                    },
+                    new { @class = "btn btn-smallest btn-warning" })
+
+                @Ajax.ActionLink("Delete", "Delete", "SubCategories",
+                    new
+                    {
+                        departmentId = Model.DepartmentId,
+                        categoryId = Model.Id,
+                        id = subCategory.Id
+                    },
+                    new AjaxOptions
+                    {
+                        UpdateTargetId = Constants.ContainerBodyId,
+                        HttpMethod = "POST",
+                        Confirm = $"Delete subcategory {subCategory.Name}?",
+                        LoadingElementId = Constants.AjaxLoadingId,
+                        LoadingElementDuration = 400
+                    },
+                    new { @class = "btn btn-smallest btn-danger" })
+            </td>
+        </tr>
+    }
+</table>
+
+@Ajax.ActionLink("Add subcategory", "Add", "SubCategories",
+    new
+    {
+        departmentId = Model.DepartmentId,
+        categoryId=Model.Id
+    },
+    new AjaxOptions
+    {
+        UpdateTargetId = Constants.ContainerBodyId,
+        HttpMethod = "GET",
+        LoadingElementId = Constants.AjaxLoadingId,
+        LoadingElementDuration = 400
+    },
+    new { @class = "btn btn-primary" })
+@Html.Partial("Partials/AjaxActionLinks/BackToCategoriesList", Model.DepartmentId)
+@Html.Partial("Partials/AjaxActionLinks/BackToDepartmentsList")

@@ -1,0 +1,11 @@
+﻿@using UniStore.Models
+@Ajax.ActionLink("Back to departments", "All", "Departments", null,
+    new AjaxOptions
+    {
+        UpdateTargetId = Constants.ContainerBodyId,
+        HttpMethod = "GET",
+        OnSuccess = "setUrl",
+        LoadingElementId = Constants.AjaxLoadingId,
+        LoadingElementDuration = 400
+    },
+    new { @class = "btn btn-success" })

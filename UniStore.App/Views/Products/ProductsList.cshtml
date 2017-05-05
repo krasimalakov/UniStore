@@ -1,0 +1,91 @@
+﻿@using UniStore.Models
+@model UniStore.Models.ViewModels.SubCategory.SubCategoryProductsVM
+
+@{
+    ViewBag.Title = "Products";
+}
+
+@Html.AntiForgeryToken()
+
+<h4>
+    @Model.DepartmentName &raquo;
+    <span style="color: #8b0000">@Model.CategoryName</span> &raquo;
+    <span style="color: deeppink">@Model.Name</span>
+</h4>
+
+@Html.AntiForgeryToken()
+
+<table class="table table-striped">
+    <tr>
+        <th>Product</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th></th>
+    </tr>
+    @foreach (var product in Model.Products)
+    {
+        <tr>
+            <td>@product.Name</td>
+            <td>@product.Price</td>
+            <td>@product.Quantity</td>
+            <td>
+                @Ajax.ActionLink("Edit", "Edit", "Products",
+                    new
+                    {
+                        departmentId = Model.DepartmentId,
+                        categoryId = Model.CategoryId,
+                        subCategoryId = Model.Id,
+                        id = product.Id
+                    },
+                    new AjaxOptions
+                    {
+                        UpdateTargetId = Constants.ContainerBodyId,
+                        HttpMethod = "GET",
+                        OnSuccess = "setUrl",
+                        LoadingElementId = Constants.AjaxLoadingId,
+                        LoadingElementDuration = 400
+                    },
+                    new { @class = "btn btn-smallest btn-warning" })
+
+                @Ajax.ActionLink("Delete", "Delete", "Products",
+                    new
+                    {
+                        departmentId = Model.DepartmentId,
+                        categoryId = Model.CategoryId,
+                        subCategoryId = Model.Id,
+                        id = product.Id
+                    },
+                    new AjaxOptions
+                    {
+                        UpdateTargetId = Constants.ContainerBodyId,
+                        HttpMethod = "POST",
+                        Confirm = $"Delete product {product.Name}?",
+                        OnSuccess = "setUrl",
+                        LoadingElementId = Constants.AjaxLoadingId,
+                        LoadingElementDuration = 400
+                    },
+                    new { @class = "btn btn-smallest btn-danger" })
+            </td>
+        </tr>
+    }
+</table>
+
+@Ajax.ActionLink("Add product", "Add", "Products",
+    new
+    {
+        departmentId = Model.DepartmentId,
+        categoryId = Model.CategoryId,
+        subCategoryId = Model.Id
+    },
+    new AjaxOptions
+    {
+        UpdateTargetId = Constants.ContainerBodyId,
+        HttpMethod = "GET",
+        OnSuccess = "setUrl",
+        LoadingElementId = Constants.AjaxLoadingId,
+        LoadingElementDuration = 400
+    },
+    new { @class = "btn btn-primary" })
+@Html.Partial("Partials/AjaxActionLinks/BackToSubCategoriesList", new[] { Model.DepartmentId, Model.CategoryId })
+@Html.Partial("Partials/AjaxActionLinks/BackToCategoriesList", Model.DepartmentId)
+@Html.Partial("Partials/AjaxActionLinks/BackToDepartmentsList")

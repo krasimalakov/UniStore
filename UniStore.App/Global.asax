@@ -1,0 +1,1 @@
+﻿<%@ Application Codebehind="Global.asax.cs" Inherits="UniStore.App.MvcApplication" Language="C#" %>

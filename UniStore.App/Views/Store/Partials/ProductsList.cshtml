@@ -1,0 +1,171 @@
+﻿@using UniStore.App.Utility
+@using UniStore.Models
+@using UniStore.Models.Enums
+@model UniStore.Models.ViewModels.Product.ProductsListVM
+
+<div class="row user-panel">
+    @*Search form*@
+    <div class="col-md-4">
+        @using (Ajax.BeginForm("ProductsList", "Store", null,
+            new AjaxOptions
+            {
+                HttpMethod = "GET",
+                InsertionMode = InsertionMode.Replace,
+                UpdateTargetId = Constants.ContainerProductsId,
+                LoadingElementId = Constants.AjaxLoadingId,
+                LoadingElementDuration = 400
+            },
+            new { @class = "col-md-12 float-left" }))
+        {
+            @Html.HiddenFor(model => model.SearchProductsBM.DepartmentId)
+            @Html.HiddenFor(model => model.SearchProductsBM.CategoryId)
+            @Html.HiddenFor(model => model.SearchProductsBM.SubCategoryId)
+            <div class="input-group">
+                @Html.EditorFor(model => model.SearchProductsBM.Search, new { htmlAttributes = new { @class = "form-control max-width" } })
+                <span class="input-group-btn">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </span>
+            </div>
+        }
+    </div>
+
+    @*Shopping cart button*@
+@if (Request.RequestContext.HttpContext.User.IsInRole(Enum.GetName(typeof(AppRole), AppRole.User)))
+{
+    <div id="shopping-cart">
+        @using (Ajax.BeginForm("ShoppingCart", "Store", null,
+            new AjaxOptions
+            {
+                HttpMethod = "GET",
+                InsertionMode = InsertionMode.Replace,
+                UpdateTargetId = Constants.ContainerProductsId,
+                LoadingElementId = Constants.AjaxLoadingId,
+                LoadingElementDuration = 400
+            },
+            null))
+        {
+            @Html.HiddenFor(model => model.SearchProductsBM.DepartmentId)
+            @Html.HiddenFor(model => model.SearchProductsBM.CategoryId)
+            @Html.HiddenFor(model => model.SearchProductsBM.SubCategoryId)
+            @Html.HiddenFor(model => model.SearchProductsBM.Search)
+            @Html.HiddenFor(model => model.SearchProductsBM.Page)
+            @Html.HiddenFor(model => model.SearchProductsBM.Order)
+            @Html.HiddenFor(model => model.SearchProductsBM.OrderBy)
+            <div class="input-group">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fa fa-shopping-cart fa-badge">
+                        <span class="badge badge-danger">@Model.UserProductsInShoppingCart</span>
+                    </i>
+                </button>
+            </div>
+        }
+    </div>
+}
+</div>
+
+@{
+    if (Model.Products.Any())
+    {
+        var count = 0;
+        <div class="card-deck">
+            @foreach (var product in Model.Products)
+            {
+                if (count == 4)
+                {
+                    @:</div>
+                    @:<div class="card-deck">
+                    count = 0;
+                }
+
+                count++;
+
+                var imageUrl = Utility.ImageAbsolutePath(product.ImageUrl);
+                <div class="card col-md-3">
+                    <div class="card-img-container">
+                        <img class="card-img-top product-list-image" src="@imageUrl" alt="No sample image!">
+                    </div>
+                    <div class="card-block">
+                        <h4 class="card-title">
+                                @Ajax.ActionLink(product.Name, "Details", "Products",
+                                    new { id = product.Id },
+                                    new AjaxOptions
+                                    {
+                                        HttpMethod = "GET",
+                                        UpdateTargetId = "result",
+                                        InsertionMode = InsertionMode.Replace,
+                                        LoadingElementId = Constants.AjaxLoadingId,
+                                        LoadingElementDuration = 400,
+                                        OnSuccess = "openPopup"
+                                    }, new { @class = "" })
+                        </h4>
+                        <p class="card-text">
+                            Price: <strong>@product.Price</strong>
+                        </p>
+                    </div>
+                        
+                    <div class="card-footer">
+                        @if (User.IsInRole(Enum.GetName(typeof(AppRole), AppRole.User)))
+                        {
+                            <div>
+                                @using (Ajax.BeginForm("AddProductToShoppingCart", "Store", null,
+                            new AjaxOptions
+                            {
+                                HttpMethod = "POST",
+                                InsertionMode = InsertionMode.Replace,
+                                UpdateTargetId = Constants.ContainerProductsId
+                            },
+                            null))
+                                {
+                                    @Html.HiddenFor(model => model.SearchProductsBM.DepartmentId)
+                                    @Html.HiddenFor(model => model.SearchProductsBM.CategoryId)
+                                    @Html.HiddenFor(model => model.SearchProductsBM.SubCategoryId)
+                                    @Html.HiddenFor(model => model.SearchProductsBM.Search)
+                                    @Html.HiddenFor(model => model.SearchProductsBM.Page)
+                                    @Html.HiddenFor(model => model.SearchProductsBM.Order)
+                                    @Html.HiddenFor(model => model.SearchProductsBM.OrderBy)
+
+                                    <div>
+                                        <input type="hidden" name="productId" value="@product.Id" />
+                                        <button type="submit" class="btn btn-primary btn-lg">
+                                            Buy
+                                        </button>
+                                    </div>
+                                }
+                            </div>
+                        }
+                    </div>
+                </div>
+                
+            }
+        </div>
+        <br />
+
+        // pagination
+        @Html.Partial("Partials/ProductListPagination", Model.SearchProductsBM,
+            new ViewDataDictionary
+            {
+                { "ActionName", "ProductsList" },
+                { "TargetId", Constants.ContainerProductsId }
+            })
+    }
+}
+
+<div id="result" style="overflow: hidden;"></div>
+
+<script>
+    $(function() {
+        $("#result").dialog({
+            autoOpen: false,
+            width: 'auto',
+            height: 'auto',
+            title:'Product details',
+            modal: true
+        });
+    });
+
+    function openPopup() {
+        $("#result").dialog("open");
+    }
+</script>

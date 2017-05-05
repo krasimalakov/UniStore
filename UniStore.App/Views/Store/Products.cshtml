@@ -1,0 +1,40 @@
+﻿@using UniStore.Models
+@{
+    ViewBag.Title = "Protucts";
+}
+<div id="store">
+
+    <div class="row">
+        <div id="messages"></div>
+    </div>
+    <div class="row">
+        <div id="route"></div>
+    </div>
+    <div id="store-products" class="row">
+        <div id="@Constants.ContainerCategoriesId" class="col-md-2">
+            @Html.Action("DepartmentsPanel")
+        </div>
+        <div id="@Constants.ContainerProductsId" class="col-md-10">
+            <div>
+                @Ajax.ActionLink("self-call-ajax-request", "ProductsList", "Store",
+                    null,
+                    new AjaxOptions
+                    {
+                        UpdateTargetId = Constants.ContainerProductsId,
+                        HttpMethod = "GET",
+                        LoadingElementId = Constants.AjaxLoadingId,
+                        LoadingElementDuration = 400
+                    },
+                    new { id = "product-list-call", @class="hidden" })
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script>
+        $(function() {
+            $("#product-list-call").click();
+        });
+    </script>
+}
+@Scripts.Render("~/bundles/jqueryval")

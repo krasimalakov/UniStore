@@ -1,0 +1,21 @@
+﻿@using UniStore.Models.Enums
+@if (Request.IsAuthenticated && User.IsInRole(AppRole.Administrator.ToString()))
+{
+    <li class="nav-item">
+        @Html.ActionLink("Manufacturers", "All", "Manufacturers", new { area = "" }, new { @class = "nav-link" })
+    </li>
+    <li class="nav-item">
+        @Html.ActionLink("Departments", "All", "Departments", new { area = "" }, new { @class = "nav-link" })
+    </li>
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Users
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            @Html.ActionLink("All users", "All", "Users", new { area = "Admin" }, new {@class="dropdown-item"})
+            @Html.ActionLink("All-2", "All", "Users", new { area = "Admin" }, new { @class = "dropdown-item" })
+        </div>
+    </li>
+
+    
+}

@@ -1,0 +1,55 @@
+﻿@using Microsoft.AspNet.Identity
+@model IEnumerable<UniStore.Models.ViewModels.Admin.UserVM>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>
+    Users<br>
+</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.UserName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Roles)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var user in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(model => user.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(model => user.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(model => user.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(model => user.Roles, "ColectionInline")
+            </td>
+            <td>
+                @Html.ActionLink("Details", "Details", new { username = user.UserName }, new { @class = "btn btn-sm btn-success" })
+                @Html.ActionLink("Edit", "Edit", new { username = user.UserName }, new { @class = "btn btn-sm btn-primary" })
+                @if (!user.UserName.Equals(User.Identity.GetUserName()))
+                {
+                    @Html.ActionLink("Delete", "Delete", new { username = user.UserName }, new { @class = "btn btn-sm btn-danger" })
+                }
+            </td>
+        </tr>
+    }
+
+</table>

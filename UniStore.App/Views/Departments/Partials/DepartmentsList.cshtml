@@ -1,0 +1,76 @@
+﻿@using UniStore.Models
+@model IEnumerable<UniStore.Models.ViewModels.Department.DepartmentVM>
+
+@Html.AntiForgeryToken()
+
+<h4>Departments</h4>
+
+<table class="table table-striped">
+    <tr>
+        <th>Department</th>
+        <th>Categories</th>
+        <th></th>
+    </tr>
+    @foreach (var department in Model)
+    {
+        <tr>
+            <td>
+                @Ajax.ActionLink(department.Name, "Details", "Departments",
+                    new
+                    {
+                        departmentId = department.Id
+                    },
+                    new AjaxOptions
+                    {
+                        UpdateTargetId = Constants.ContainerBodyId,
+                        HttpMethod = "GET",
+                        OnSuccess = "setUrl",
+                        LoadingElementId = Constants.AjaxLoadingId,
+                        LoadingElementDuration = 400
+                    })
+            </td>
+            
+            <td>@department.CategoriesCount</td>
+            <td>
+                @Ajax.ActionLink("Rename", "Rename", "Departments",
+                    new
+                    {
+                        departmentId = department.Id
+                    },
+                    new AjaxOptions
+                    {
+                        UpdateTargetId = Constants.ContainerBodyId,
+                        HttpMethod = "GET",
+                        LoadingElementId = Constants.AjaxLoadingId,
+                        LoadingElementDuration = 400
+                    },
+                    new { @class = "btn btn-smallest btn-warning" })
+
+                @Ajax.ActionLink("Delete", "Delete", "Departments",
+                    new
+                    {
+                        departmentId = department.Id
+                    },
+                    new AjaxOptions
+                    {
+                        UpdateTargetId = Constants.ContainerBodyId,
+                        HttpMethod = "POST",
+                        Confirm = $"Delete department {department.Name}?",
+                        LoadingElementId = Constants.AjaxLoadingId,
+                        LoadingElementDuration = 400
+                    },
+                    new { @class = "btn btn-smallest btn-danger" })
+            </td>
+        </tr>
+    }
+</table>
+
+@Ajax.ActionLink("Add department", "Add", null,
+    new AjaxOptions
+    {
+        UpdateTargetId = Constants.ContainerBodyId,
+        HttpMethod = "GET",
+        LoadingElementId = Constants.AjaxLoadingId,
+        LoadingElementDuration = 400
+    },
+    new { @class = "btn btn-primary" })

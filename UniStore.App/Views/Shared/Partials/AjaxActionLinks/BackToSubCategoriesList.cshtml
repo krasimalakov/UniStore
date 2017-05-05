@@ -1,0 +1,17 @@
+﻿@using UniStore.Models
+@model int[]
+@Ajax.ActionLink("Back to subcategories", "Details", "Categories",
+    new
+    {
+        departmentId = Model[0],
+        categoryId = Model[1]
+    },
+    new AjaxOptions
+    {
+        UpdateTargetId = Constants.ContainerBodyId,
+        HttpMethod = "GET",
+        OnSuccess = "setUrl",
+        LoadingElementId = Constants.AjaxLoadingId,
+        LoadingElementDuration = 400
+    },
+    new { @class = "btn btn-success" })

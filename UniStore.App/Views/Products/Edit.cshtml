@@ -1,0 +1,98 @@
+﻿@using UniStore.Models.ViewModels
+@model UniStore.Models.ViewModels.Product.EditProductVM
+
+@{
+    ViewBag.Title = "Products";
+}
+
+@using (Html.BeginForm("Update", "Products", FormMethod.Post,
+                new { enctype = "multipart/form-data" }))
+
+{
+    @Html.AntiForgeryToken()
+
+    <div class="width-custom">
+        <h2>Edit product</h2>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
+        <div class="row">
+            <div class="col-md-8">
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.Name, new { @class = "form-control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.Description, new { @class = "form-control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextAreaFor(model => model.Description, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.Price, new { @class = "form-control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.Quantity, new { @class = "form-control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Quantity, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Quantity, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.ManufacturerId, new { @class = "form-control-label col-md-2" })
+                    <div class="col-md-10">
+
+                        @Html.DropDownListFor(model => model.ManufacturerId, Model.Manufacturers, "-- manufacturers --", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.ManufacturerId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                
+                @Html.EditorFor(model => model.ImageUrl, new { htmlAttributes = new { @class = "hidden" } })
+
+            </div>
+            
+            <div class="col-md-4">
+                @Html.Partial("Partials/InputImageFormGroup", new InputImageFormGroupVM
+           {
+               ImageUrl = Model.ImageUrl,
+               Image = Model.Image
+           })
+
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-warning" />
+                @Html.Partial("Partials/AjaxActionLinks/BackToProductList",
+                    new[] { Model.DepartmentId, Model.CategoryId, Model.SubCategoryId })
+            </div>
+        </div>
+    </div>
+}
+
+@if (Request.IsAjaxRequest())
+{
+    <script>
+        InitImageFormGroup();
+    </script>
+}
+else
+{
+@section Scripts{
+    <script>
+        InitImageFormGroup();
+    </script>
+    }
+}

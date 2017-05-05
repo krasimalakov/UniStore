@@ -1,0 +1,8 @@
+﻿@model UniStore.Models.ViewModels.Department.DepartmentVM
+
+@{
+    ViewBag.Title = "Departments";
+}
+
+@{ Html.RenderAction("DepartmentCategoriesList", "Categories",
+       new { departmentId = Model.Id }); }

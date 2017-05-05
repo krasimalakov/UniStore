@@ -1,0 +1,8 @@
+﻿@model UniStore.Models.ViewModels.Category.CategoryVM
+
+@{
+    ViewBag.Title = "Categories";
+}
+
+@{ Html.RenderAction("SubCategoriesList", "SubCategories",
+       new { departmentId = Model.DepartmentId, categoryId = Model.Id }); }

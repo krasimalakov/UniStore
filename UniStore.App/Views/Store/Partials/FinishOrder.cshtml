@@ -1,0 +1,129 @@
+﻿@using UniStore.App.Utility
+@using UniStore.Models
+@model UniStore.Models.ViewModels.ShoppingCard.ShoppingCardVM
+
+<h2 id="test">Finishing the order</h2>
+<hr />
+
+<div class="col-md-10">
+    @using (Ajax.BeginForm("FinishOrder",
+        new AjaxOptions
+        {
+            HttpMethod = "POST",
+            InsertionMode = InsertionMode.Replace,
+            UpdateTargetId = Constants.ContainerProductsId,
+            LoadingElementId = Constants.AjaxLoadingId,
+            LoadingElementDuration = 400,
+            OnSuccess = "alert('Order is completed!');"
+        }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        @Html.HiddenFor(model => model.SearchProductsBM.DepartmentId)
+        @Html.HiddenFor(model => model.SearchProductsBM.CategoryId)
+        @Html.HiddenFor(model => model.SearchProductsBM.SubCategoryId)
+        @Html.HiddenFor(model => model.SearchProductsBM.Search)
+        @Html.HiddenFor(model => model.SearchProductsBM.Page)
+        @Html.HiddenFor(model => model.SearchProductsBM.Order)
+        @Html.HiddenFor(model => model.SearchProductsBM.OrderBy)
+
+        <div>
+            <div class="row">
+                <div class="col-sm-12 col-md-10 offset-1">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th colspan="2">Product</th>
+                            <th>Quantity</th>
+                            <th class="text-center">Price</th>
+                            <th class="text-center">Total</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach (var purchase in Model.Purchases)
+                        {
+                            var imageUrl = Utility.ImageAbsolutePath(purchase.Product.ImageUrl);
+                            <tr>
+                                <td>
+                                    <img class="media" src="@imageUrl" style="height: 72px; width: auto;" alt="no image!">
+                                </td>
+                                <td>
+                                    @purchase.Product.Name;
+                                </td>
+                                <td>
+                                    @purchase.Price
+                                </td>
+                                <td class="text-center col-md-1">
+                                    @purchase.Quantity
+                                </td>
+                                <td class="text-center">
+                                    @purchase.Price
+                                </td>
+                                <td class="text-center">
+                                    @purchase.Value
+                                </td>
+                            </tr>
+                        }
+
+                        <tr>
+                            <td> </td>
+                            <td> </td>
+                            <td> </td>
+                            <td>
+                                <h3>Total</h3>
+                            </td>
+                            <td class="text-center">
+                                <h3>
+                                    <strong>@Model.Total</strong>
+                                </h3>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="form-group row">
+
+            @Html.LabelFor(model => model.DeliveryAddress, new { @class = "form-control-label" })
+            <div class="col-md-8">
+                @Html.EditorFor(model => model.DeliveryAddress,
+                    new { htmlAttributes = new { @class = "form-control max-width", id = "delivery-address" } })
+                @Html.ValidationMessageFor(model => model.DeliveryAddress, "", new { @class = "text-danger" })
+            </div>
+            <br />
+            <br/>
+            <hr/>
+            <div class="row">
+                <div class="col-md-2 offset-5">
+                    <button class="btn btn-danger" type="submit">Buy product</button>
+                </div>
+                <div class="col-md-2 offset-3">
+                    @Ajax.ActionLink(" Continue Shopping", "ProductsList", "Store",
+                        new
+                        {
+                            Model.SearchProductsBM.DepartmentId,
+                            Model.SearchProductsBM.CategoryId,
+                            Model.SearchProductsBM.SubCategoryId,
+                            Model.SearchProductsBM.Search,
+                            Model.SearchProductsBM.Page,
+                            Model.SearchProductsBM.Order,
+                            Model.SearchProductsBM.OrderBy
+                        },
+                        new AjaxOptions
+                        {
+                            UpdateTargetId = Constants.ContainerProductsId,
+                            HttpMethod = "GET",
+                            LoadingElementId = Constants.AjaxLoadingId,
+                            LoadingElementDuration = 400
+                        },
+                        new { @class = "btn btn-primary fa fa-shopping-cart" })
+                </div>
+            </div>
+        </div>
+    }
+</div>
+

@@ -1,0 +1,25 @@
+﻿@using UniStore.Models.BindingModels.Product
+@model UniStore.Models.ViewModels.InputImageFormGroupVM
+<div class="form-group">
+    <div>
+        <img id="product-image" src="@Url.Content("~" + Model.ImageUrl)" style="height: 150px;" alt="No image!"/>
+    </div>
+
+    @{ var imageInfo = string.IsNullOrEmpty(Model.ImageUrl)
+           ? "Select image for product" : "Change image for product"; }
+
+    <span id="upload-file-info" class="btn btn-primary btn-smallest">@imageInfo</span>
+    <div class="col-md-10">
+        @Html.TextBoxFor(model => model.Image,
+            new
+            {
+                type = "file",
+                @class = " col-md-10 form-control hidden",
+                accept = "image/gif, image/jpeg, image/png, image/bmp"
+            })
+    </div>
+</div>
+
+@*<script>
+    InitImageFormGroup();
+</script>*@

@@ -1,0 +1,19 @@
+﻿@using UniStore.Models
+@model UniStore.Models.ViewModels.Department.DepartmentVM
+
+@{
+    ViewBag.Title = "Categories";
+}
+
+@if (!Request.IsAjaxRequest())
+{
+    <h4>Department: @Model.Name</h4>
+    <div id=@Constants.ContainerBodyId>
+        @{ Html.RenderAction("DepartmentCategoriesList", new { departmentId = Model.Id }); }
+
+    </div>
+}
+else
+{
+    Html.RenderAction("DepartmentCategoriesList", new { departmentId = Model.Id });
+}

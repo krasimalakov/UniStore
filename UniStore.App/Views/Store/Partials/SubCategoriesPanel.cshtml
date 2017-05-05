@@ -1,0 +1,63 @@
+﻿@using UniStore.Models
+@model UniStore.Models.ViewModels.Category.CategorySubCategoriesVM
+<div class="my-nav">
+    <ul>
+        <li>
+            @Ajax.ActionLink("Departments", "DepartmentsPanel", "Store", null,
+                new AjaxOptions
+                {
+                    UpdateTargetId = Constants.ContainerCategoriesId,
+                    HttpMethod = "GET",
+                    LoadingElementId = Constants.AjaxLoadingId,
+                    LoadingElementDuration = 400
+                },
+                new { @class = "active title" })
+        </li>
+        <li class="nav-divider"></li>
+        <li>
+            @Ajax.ActionLink($"{Model.DepartmentName}", "CategoriesPanel", "Store",
+                new { departmentId = Model.DepartmentId },
+                new AjaxOptions
+                {
+                    UpdateTargetId = Constants.ContainerCategoriesId,
+                    HttpMethod = "GET",
+                    LoadingElementId = Constants.AjaxLoadingId,
+                    LoadingElementDuration = 400
+                },
+                new { @class = "active title" })
+        </li>
+        <li>
+            @Ajax.ActionLink($"{Model.Name} - ({Model.ProductsCount})", "ProductsList", "Store",
+                new
+                {
+                    categoryId = Model.Id
+                },
+                new AjaxOptions
+                {
+                    UpdateTargetId = Constants.ContainerProductsId,
+                    HttpMethod = "GET",
+                    LoadingElementId = Constants.AjaxLoadingId,
+                    LoadingElementDuration = 400
+                },
+                new { @class = "active title submenu-title" })
+        </li>
+        @foreach (var subCategoryVM in Model.SubCategories)
+        {
+            <li>
+                @Ajax.ActionLink($"{subCategoryVM.Name}  - ({subCategoryVM.ProductsCount})", "ProductsList", "Store",
+                    new
+                    {
+                        subCategoryId = subCategoryVM.Id
+                    },
+                    new AjaxOptions
+                    {
+                        UpdateTargetId = Constants.ContainerProductsId,
+                        HttpMethod = "GET",
+                        LoadingElementId = Constants.AjaxLoadingId,
+                        LoadingElementDuration = 400
+                    },
+                    new { @class = "submenu2" })
+            </li>
+        }
+    </ul>
+</div>

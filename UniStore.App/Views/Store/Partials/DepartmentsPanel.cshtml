@@ -1,0 +1,44 @@
+﻿@using UniStore.Models
+@model IEnumerable<UniStore.Models.ViewModels.Department.DepartmentVM>
+<div class="my-nav">
+    <ul>
+        <li>
+            @Ajax.ActionLink($"Departments ({@Model.Sum(d=>d.ProductsCount)})", "ProductsList", "Store",
+                null,
+                new AjaxOptions
+                {
+                    UpdateTargetId = Constants.ContainerProductsId,
+                    HttpMethod = "GET",
+                    LoadingElementId = Constants.AjaxLoadingId,
+                    LoadingElementDuration = 400
+                },
+                new { @class = "active title" })
+        </li>
+        <li class="nav-divider"></li>
+        @foreach (var departmentVM in Model)
+        {
+            <li>
+                @Ajax.ActionLink($"{departmentVM.Name}", "CategoriesPanel", "Store",
+                    new { departmentId = departmentVM.Id },
+                    new AjaxOptions
+                    {
+                        UpdateTargetId = Constants.ContainerCategoriesId,
+                        HttpMethod = "GET",
+                        LoadingElementId = Constants.AjaxLoadingId,
+                        LoadingElementDuration = 400
+                    })
+                @Ajax.ActionLink($"( {departmentVM.ProductsCount} products )", "ProductsList", "Store",
+                    new { departmentId = departmentVM.Id },
+                    new AjaxOptions
+                    {
+                        UpdateTargetId = Constants.ContainerProductsId,
+                        HttpMethod = "GET",
+                        LoadingElementId = Constants.AjaxLoadingId,
+                        LoadingElementDuration = 400
+                    },
+                    new { @class = "product-list-link" })
+            </li>
+        }
+    </ul>
+
+</div>

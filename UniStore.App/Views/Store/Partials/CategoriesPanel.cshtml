@@ -1,0 +1,59 @@
+﻿@using UniStore.Models
+@model UniStore.Models.ViewModels.Department.DepartmentCategoriesVM
+<div class="my-nav">
+    <ul>
+        <li>
+            @Ajax.ActionLink("Departments", "DepartmentsPanel", "Store",
+                null,
+                new AjaxOptions
+                {
+                    UpdateTargetId = Constants.ContainerCategoriesId,
+                    HttpMethod = "GET",
+                    LoadingElementId = Constants.AjaxLoadingId,
+                    LoadingElementDuration = 400
+                },
+                new { @class = "active title" })
+        </li>
+        <li class="nav-divider"></li>
+        <li>
+            @Ajax.ActionLink($"{Model.Name} - ({Model.ProductsCount})", "ProductsList", "Store",
+                new { departmentId = Model.Id },
+                new AjaxOptions
+                {
+                    UpdateTargetId = Constants.ContainerProductsId,
+                    HttpMethod = "GET",
+                    LoadingElementId = Constants.AjaxLoadingId,
+                    LoadingElementDuration = 400
+                },
+                new { @class = "active title" })
+        </li>
+        @foreach (var categoryVM in Model.Categories)
+        {
+            <li>
+                @Ajax.ActionLink($"{categoryVM.Name}", "SubCategoriesPanel", "Store",
+                    new
+                    {
+                        categoryId = categoryVM.Id
+                    },
+                    new AjaxOptions
+                    {
+                        UpdateTargetId = Constants.ContainerCategoriesId,
+                        HttpMethod = "GET",
+                        LoadingElementId = Constants.AjaxLoadingId,
+                        LoadingElementDuration = 400
+                    })
+                @Ajax.ActionLink($"( {categoryVM.ProductsCount} products )", "ProductsList", "Store",
+                    new { categoryId = categoryVM.Id },
+                    new AjaxOptions
+                    {
+                        UpdateTargetId = Constants.ContainerProductsId,
+                        HttpMethod = "GET",
+                        LoadingElementId = Constants.AjaxLoadingId,
+                        LoadingElementDuration = 400
+                    },
+                    new { @class = "product-list-link" })
+            </li>
+        }
+    </ul>
+
+</div>

@@ -1,0 +1,40 @@
+﻿@using UniStore.Models
+@model UniStore.Models.BindingModels.Product.SearchProductsBM
+
+@using (Ajax.BeginForm("ProductsList", "Store", null,
+                            new AjaxOptions
+                            {
+                                HttpMethod = "GET",
+                                InsertionMode = InsertionMode.Replace,
+                                UpdateTargetId = Constants.ContainerProductsId,
+                                LoadingElementId = Constants.AjaxLoadingId,
+                                LoadingElementDuration = 400
+                            },
+                            new { @class = "col-md-12 float-left" }))
+{
+    @Html.HiddenFor(model => model.DepartmentId)
+    @Html.HiddenFor(model => model.CategoryId)
+    @Html.HiddenFor(model => model.SubCategoryId)
+    <div class="input-group">
+        @Html.EditorFor(model => model.Search, new { htmlAttributes = new { @class = "form-control max-width" } })
+        <span class="input-group-btn">
+            <button type="submit" class="btn btn-primary">
+                <i class="fa fa-search"></i>
+            </button>
+        </span>
+        <span class="input-group-addon">
+            <span>
+                Order criteria
+            </span>
+        </span>
+        @Html.DropDownListFor(model => model.OrderBy,
+            Model.OrderByList, "", new { @class = "form-control" })
+        @Html.DropDownListFor(model => model.Order,
+            Model.OrderList, "", new { @class = "form-control" })
+        <span class="input-group-btn">
+            <button type="submit" class="btn btn-primary">
+                Order
+            </button>
+        </span>
+    </div>
+}

@@ -10,5 +10,7 @@
         public const int LoadingElementDuration = 400;
         public const string ImagePath = "~/Content/Images/";
         public const string DefaultImage = "/Content/Images/no-image.jpg";
+        public static readonly string[] OrderBy = {"Last added","Name", "Price"};
+        public static readonly string[] Order = {"Ascending","Descending"};
     }
 }

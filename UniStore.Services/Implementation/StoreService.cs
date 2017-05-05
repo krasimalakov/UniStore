@@ -3,9 +3,11 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Web.Mvc;
     using AutoMapper;
     using Data.UnitOfWork;
     using Interfaces;
+    using Models;
     using Models.BindingModels.Product;
     using Models.EntityModels;
     using Models.ViewModels.Category;
@@ -57,15 +59,18 @@
         {
             const int PageSize = 4;
 
+
             var search = new SearchProductsBM
             {
                 Search = searchBM.Search ?? string.Empty,
                 Page = searchBM.Page,
-                Order = searchBM.Order,
-                OrderBy = searchBM.OrderBy,
+                Order = searchBM.Order ?? Constants.Order[0],
+                OrderBy = searchBM.OrderBy ?? Constants.OrderBy[0],
                 SubCategoryId = searchBM.SubCategoryId,
                 CategoryId = searchBM.CategoryId,
-                DepartmentId = searchBM.DepartmentId
+                DepartmentId = searchBM.DepartmentId,
+                OrderList = new SelectList(Constants.Order),
+                OrderByList = new SelectList(Constants.OrderBy)
             };
             var pageNumber = search.Page;
             if (pageNumber < 1)
@@ -113,6 +118,25 @@
                     .Where(p => p.Name.ToLower().Contains(search.Search.ToLower()));
             }
 
+            if (search.OrderBy == Constants.OrderBy[0])
+            {
+                products = string.Equals(search.Order, Constants.Order[0])
+                    ? products.OrderBy(p => p.Id)
+                    : products.OrderByDescending(p => p.Id);
+            }
+            else if (search.OrderBy == Constants.OrderBy[1])
+            {
+                products = string.Equals(search.Order, Constants.Order[0])
+                    ? products.OrderBy(p => p.Name)
+                    : products.OrderByDescending(p => p.Name);
+            }
+            else if (search.OrderBy == Constants.OrderBy[2])
+            {
+                products = string.Equals(search.Order, Constants.Order[0])
+                    ? products.OrderBy(p => p.Price)
+                    : products.OrderByDescending(p => p.Price);
+            }
+
             var productVms = products
                 .Skip((pageNumber - 1) * PageSize)
                 .Take(PageSize)
@@ -152,7 +176,7 @@
             foreach (var purchase in shoppingCardVM.Purchases)
             {
                 purchase.Price = purchase.Product.Price;
-                purchase.Value = purchase.Quantity*purchase.Price;
+                purchase.Value = purchase.Quantity * purchase.Price;
             }
 
             shoppingCardVM.Total = shoppingCardVM.Purchases.Sum(p => p.Value);
@@ -168,7 +192,8 @@
             {
                 return null;
             }
-            var purchasesToBuy=new List<PurchaseVM>();
+
+            var purchasesToBuy = new List<PurchaseVM>();
             foreach (var purchase in finishOrderVM.Purchases)
             {
                 if (purchase.Quantity > 0 && purchase.Product.Quantity >= purchase.Quantity)
@@ -179,7 +204,7 @@
 
             finishOrderVM.Purchases = purchasesToBuy;
 
-            finishOrderVM.Total= purchasesToBuy.Sum(p => p.Value);
+            finishOrderVM.Total = purchasesToBuy.Sum(p => p.Value);
 
             return finishOrderVM;
         }
@@ -207,7 +232,7 @@
             }
 
             var product = this.Context.Products.Find(productId);
-            if (product == null || product.Quantity == 0||shoppingCard.Purchases.Any(p=>p.Product.Id==productId))
+            if (product == null || product.Quantity == 0 || shoppingCard.Purchases.Any(p => p.Product.Id == productId))
             {
                 return false;
             }

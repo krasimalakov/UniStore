@@ -398,6 +398,7 @@
     <Content Include="Views\Store\Partials\ProductListPagination.cshtml" />
     <Content Include="Views\Store\Partials\ShoppingCart.cshtml" />
     <Content Include="Views\Store\Partials\FinishOrder.cshtml" />
+    <Content Include="Views\Store\Partials\ProductsListSearchPanel.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Admin\Views\Shared\" />

@@ -90,14 +90,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Implementation\AdminService.cs" />
+    <Compile Include="Implementation\OrdersService.cs" />
+    <Compile Include="Implementation\UsersService.cs" />
     <Compile Include="BaseService.cs" />
     <Compile Include="Implementation\DepartmentsService.cs" />
     <Compile Include="Implementation\CategoriesService.cs" />
     <Compile Include="Implementation\ProductsService.cs" />
     <Compile Include="Implementation\StoreService.cs" />
+    <Compile Include="Interfaces\IOrdersService.cs" />
     <Compile Include="Interfaces\IProductsService.cs" />
-    <Compile Include="Interfaces\IAdminService.cs" />
+    <Compile Include="Interfaces\IUsersService.cs" />
     <Compile Include="Interfaces\IDepartmentsService.cs" />
     <Compile Include="Interfaces\ICategoriesService.cs" />
     <Compile Include="Interfaces\IManufacturersService.cs" />

@@ -13,6 +13,8 @@
         public const string ContainerStorePanelId = "store-panel";
         public const string ContainerStoreProductsId = "store-products";
 
+        public const string ContainerOrderListId = "orders";
+
         public const string ImagePath = "~/Content/Images/";
         public const string DefaultImage = "/Content/Images/no-image.jpg";
 

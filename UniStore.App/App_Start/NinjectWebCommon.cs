@@ -83,7 +83,7 @@ namespace UniStore.App
                     HttpContext.Current.GetOwinContext().Authentication)
                 .InRequestScope();
 
-            kernel.Bind<IAdminService>().To<AdminService>().InRequestScope();
+            kernel.Bind<IUsersService>().To<UsersService>().InRequestScope();
 
             kernel.Bind<IManufacturersService>().To<ManufacturersService>().InRequestScope();
 
@@ -96,6 +96,8 @@ namespace UniStore.App
             kernel.Bind<IProductsService>().To<ProductsService>().InRequestScope();
 
             kernel.Bind<IStoreService>().To<StoreService>().InRequestScope();
+
+            kernel.Bind<IOrdersService>().To<OrdersService>().InRequestScope();
         }        
     }
 }

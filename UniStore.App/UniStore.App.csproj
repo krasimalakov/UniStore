@@ -207,6 +207,7 @@
     <Compile Include="Controllers\DepartmentsController.cs" />
     <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Controllers\StoreController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -217,7 +218,6 @@
     </Compile>
     <Compile Include="HtmlHelperExrensions\HtmlHelperExrensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utility\Utility.cs" />
     <Content Include="Content\favicon.ico" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
@@ -298,6 +298,7 @@
     <Content Include="fonts\fontawesome-webfont.woff" />
     <Content Include="fonts\fontawesome-webfont.woff2" />
     <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="Views\Orders\OrdersList.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -400,7 +401,7 @@
     <Content Include="Views\Store\Partials\ShoppingCart.cshtml" />
     <Content Include="Views\Store\Partials\FinishOrder.cshtml" />
     <Content Include="Views\Store\Partials\ProductsListSearchPanel.cshtml" />
-    <Content Include="Views\Store\UserOrders.cshtml" />
+    <Content Include="Views\Orders\Orders.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Admin\Views\Shared\" />

@@ -1,4 +1,4 @@
-﻿@using UniStore.App.Utility
+﻿@using UniStore.App.HtmlHelperExrensions
 @using UniStore.Models
 @using UniStore.Models.Enums
 @model UniStore.Models.ViewModels.Product.ProductsListVM
@@ -10,37 +10,37 @@
     </div>
 
     @*Shopping cart button*@
-@if (Request.RequestContext.HttpContext.User.IsInRole(Enum.GetName(typeof(AppRole), AppRole.User)))
-{
-    <div id="shopping-cart">
-        @using (Ajax.BeginForm("ShoppingCart", "Store", null,
-            new AjaxOptions
+    @if (Request.RequestContext.HttpContext.User.IsInRole(Enum.GetName(typeof(AppRole), AppRole.User)))
+    {
+        <div id="shopping-cart">
+            @using (Ajax.BeginForm("ShoppingCart", "Store", null,
+                    new AjaxOptions
+                    {
+                        HttpMethod = "GET",
+                        InsertionMode = InsertionMode.Replace,
+                        UpdateTargetId = Constants.ContainerStoreProductsId,
+                        LoadingElementId = Constants.AjaxLoadingId,
+                        LoadingElementDuration = 400
+                    },
+                    null))
             {
-                HttpMethod = "GET",
-                InsertionMode = InsertionMode.Replace,
-                UpdateTargetId = Constants.ContainerStoreProductsId,
-                LoadingElementId = Constants.AjaxLoadingId,
-                LoadingElementDuration = 400
-            },
-            null))
-        {
-            @Html.HiddenFor(model => model.SearchProductsBM.DepartmentId)
-            @Html.HiddenFor(model => model.SearchProductsBM.CategoryId)
-            @Html.HiddenFor(model => model.SearchProductsBM.SubCategoryId)
-            @Html.HiddenFor(model => model.SearchProductsBM.Search)
-            @Html.HiddenFor(model => model.SearchProductsBM.Page)
-            @Html.HiddenFor(model => model.SearchProductsBM.Order)
-            @Html.HiddenFor(model => model.SearchProductsBM.OrderBy)
-            <div class="input-group">
-                <button type="submit" class="btn btn-primary">
-                    <i class="fa fa-shopping-cart fa-badge">
-                        <span class="badge badge-danger">@Model.UserProductsInShoppingCart</span>
-                    </i>
-                </button>
-            </div>
-        }
-    </div>
-}
+                @Html.HiddenFor(model => model.SearchProductsBM.DepartmentId)
+                @Html.HiddenFor(model => model.SearchProductsBM.CategoryId)
+                @Html.HiddenFor(model => model.SearchProductsBM.SubCategoryId)
+                @Html.HiddenFor(model => model.SearchProductsBM.Search)
+                @Html.HiddenFor(model => model.SearchProductsBM.Page)
+                @Html.HiddenFor(model => model.SearchProductsBM.Order)
+                @Html.HiddenFor(model => model.SearchProductsBM.OrderBy)
+                <div class="input-group">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fa fa-shopping-cart fa-badge">
+                            <span class="badge badge-danger">@Model.UserProductsInShoppingCart</span>
+                        </i>
+                    </button>
+                </div>
+            }
+        </div>
+    }
 </div>
 
 @{
@@ -59,14 +59,13 @@
 
                 count++;
 
-                var imageUrl = Utility.ImageAbsolutePath(product.ImageUrl);
                 <div class="card col-md-3">
                     <div class="card-img-container">
-                        <img class="card-img-top product-list-image" src="@imageUrl" alt="No sample image!">
+                        @Html.ImageFromFile(product.ImageUrl, "card-img-top product-list-image", "No sample image!")
                     </div>
                     <div class="card-block">
                         <h4 class="card-title">
-                                @Ajax.ActionLink(product.Name, "Details", "Products",
+                            @Ajax.ActionLink(product.Name, "Details", "Products",
                                     new { id = product.Id },
                                     new AjaxOptions
                                     {
@@ -82,19 +81,19 @@
                             Price: <strong>@product.Price</strong>
                         </p>
                     </div>
-                        
+
                     <div class="card-footer">
                         @if (User.IsInRole(Enum.GetName(typeof(AppRole), AppRole.User)))
                         {
                             <div>
                                 @using (Ajax.BeginForm("AddProductToShoppingCart", "Store", null,
-                            new AjaxOptions
-                            {
-                                HttpMethod = "POST",
-                                InsertionMode = InsertionMode.Replace,
-                                UpdateTargetId = Constants.ContainerStoreProductsId
-                            },
-                            null))
+            new AjaxOptions
+            {
+                HttpMethod = "POST",
+                InsertionMode = InsertionMode.Replace,
+                UpdateTargetId = Constants.ContainerStoreProductsId
+            },
+            null))
                                 {
                                     @Html.HiddenFor(model => model.SearchProductsBM.DepartmentId)
                                     @Html.HiddenFor(model => model.SearchProductsBM.CategoryId)
@@ -115,7 +114,7 @@
                         }
                     </div>
                 </div>
-                
+
             }
         </div>
         <br />
@@ -133,12 +132,12 @@
 <div id="result" style="overflow: hidden;"></div>
 
 <script>
-    $(function() {
+    $(function () {
         $("#result").dialog({
             autoOpen: false,
             width: 'auto',
             height: 'auto',
-            title:'Product details',
+            title: 'Product details',
             modal: true
         });
     });

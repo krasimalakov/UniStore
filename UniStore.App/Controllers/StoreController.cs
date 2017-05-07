@@ -137,18 +137,5 @@
             return this.RedirectToAction("ProductsList", finishOrderBM.SearchProductsBM);
         }
 
-        [HttpGet]
-        [AuthorizeInRole(AppRole.User)]
-        [Route("shopping-cart/user-orders")]
-        public ActionResult UserOrders()
-        {
-            //var userOrdersVM = this.service.GetUserOrdersVM(this.User.Identity.GetUserId());
-            //if (userOrdersVM == null)
-            //{
-            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            //}
-
-            return this.View();
-        }
     }
 }

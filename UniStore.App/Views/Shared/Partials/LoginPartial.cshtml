@@ -11,10 +11,14 @@
                     <span class="fa fa-user"> @User.Identity.GetUserName()</span>
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+
                     @Html.ActionLink("User profile", "Edit", "Users",
-                        new { area = "Admin", username= User.Identity.GetUserName()},
+                        new { area = "Admin", username = User.Identity.GetUserName() },
                         new { @class = "dropdown-item" })
-                    @Html.ActionLink("Change password", "Index", "Manage", new { area = "" }, new { title = "Manage", @class = "dropdown-item" })
+
+                    @Html.ActionLink("My orders", "Orders", "Orders", new { area = "" }, new { @class = "dropdown-item" })
+
+                    @Html.ActionLink("Change password", "Index", "Manage", new { area = "" }, new { title = "Change password", @class = "dropdown-item" })
                 </div>
             </li>
             <li class="nav-item">

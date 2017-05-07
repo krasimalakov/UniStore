@@ -8,14 +8,13 @@
     using Data.UnitOfWork;
     using Interfaces;
     using Microsoft.AspNet.Identity;
-    using Models.BindingModels;
     using Models.BindingModels.User;
     using Models.EntityModels;
     using Models.ViewModels.User;
 
-    public class AdminService : BaseService, IAdminService
+    public class UsersService : BaseService, IUsersService
     {
-        public AdminService(IUniStoreContext context) : base(context)
+        public UsersService(IUniStoreContext context) : base(context)
         {
         }
 
@@ -78,7 +77,6 @@
             return userVM;
         }
 
-
         public void UpdateUserData(EditUserBM userBM, bool isAdmin)
         {
             var user = this.Context.Users.Find(userBM.Id);
@@ -114,13 +112,6 @@
             this.Context.SaveChanges();
         }
 
-        private IEnumerable<string> GetRoleNames(IEnumerable<string> roleIds)
-        {
-            var appRoles = this.Context.Roles.All().ToList();
-            var roles = roleIds.Select(r => appRoles.First(ar => ar.Id == r).Name);
-            return roles;
-        }
-
         public void RemoveUser(string username, string cuurentUserName)
         {
             var user = this.Context.Users.All().FirstOrDefault(u => u.UserName.Equals(username));
@@ -130,6 +121,13 @@
             }
 
             this.Context.UserManager.Delete(user);
+        }
+
+        private IEnumerable<string> GetRoleNames(IEnumerable<string> roleIds)
+        {
+            var appRoles = this.Context.Roles.All().ToList();
+            var roles = roleIds.Select(r => appRoles.First(ar => ar.Id == r).Name);
+            return roles;
         }
     }
 }

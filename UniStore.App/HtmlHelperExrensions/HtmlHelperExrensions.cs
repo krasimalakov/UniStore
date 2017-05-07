@@ -1,28 +1,68 @@
 ﻿namespace UniStore.App.HtmlHelperExrensions
 {
     using System.Collections.Generic;
+    using System.IO;
     using System.Linq;
     using System.Text;
     using System.Web.Mvc;
+    using Models;
 
     public static class HtmlHelperExrensions
     {
         public static MvcHtmlString Image(
             this HtmlHelper helper,
             string imageUrl,
+            string @class = null,
             string alt = null,
-            //string width = "150px",
-            string height = "150px")
+            string width = null,
+            string height = null)
+        {
+            return ImageTag(imageUrl, @class, alt, width, height);
+        }
+
+        public static MvcHtmlString ImageFromFile(
+            this HtmlHelper helper,
+            string imageFileName,
+            string @class = null,
+            string alt = null,
+            string width = null,
+            string height = null)
+        {
+            var fullFileName= string.IsNullOrWhiteSpace(imageFileName)
+                ? Path.Combine("~", Constants.DefaultImage)
+                : Path.Combine("~", imageFileName);
+
+            return ImageTag(fullFileName, @class, alt, width, height);
+        }
+
+        private static MvcHtmlString ImageTag(
+            string imageUrl,
+            string @class = null,
+            string alt = null,
+            string width = null,
+            string height = null)
         {
             var builder = new TagBuilder("img");
             builder.MergeAttribute("src", imageUrl);
+
+            if (@class != null)
+            {
+                builder.MergeAttribute("class", @class);
+            }
+
+            if (width != null)
+            {
+                builder.MergeAttribute("width", width);
+            }
+
+            if (height != null)
+            {
+                builder.MergeAttribute("height", height);
+            }
             if (alt != null)
             {
                 builder.MergeAttribute("alt", alt);
             }
-
-            //builder.MergeAttribute("width", width);
-            builder.MergeAttribute("height", height);
 
             return new MvcHtmlString(builder.ToString(TagRenderMode.SelfClosing));
         }

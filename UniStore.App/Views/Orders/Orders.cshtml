@@ -1,0 +1,37 @@
+﻿@using UniStore.Models
+@model UniStore.Models.Pagination
+
+@{
+    ViewBag.Title = "Orders";
+}
+
+<h2>
+    Orders of user: <strong>@Model.Search</strong>
+</h2>
+
+<hr/>
+
+<div id="@Constants.ContainerOrderListId">
+    
+    @Ajax.ActionLink("#", "OrdersList", "Orders",
+        new { Model.Search },
+        new AjaxOptions
+        {
+            HttpMethod = "GET",
+            UpdateTargetId = Constants.ContainerOrderListId,
+            LoadingElementId = Constants.AjaxLoadingId,
+            LoadingElementDuration = 400
+        },
+        new { id = "orders-list", @class = "hidden" })
+
+</div>
+
+@section Scripts{
+    <script>
+        $(function() {
+            $("#orders-list").click();
+        });
+    </script>
+}
+
+@Scripts.Render("~/bundles/jqueryval")

@@ -1,12 +1,11 @@
 namespace UniStore.Services.Interfaces
 {
     using System.Collections.Generic;
-    using Models.BindingModels;
     using Models.BindingModels.User;
     using Models.EntityModels;
     using Models.ViewModels.User;
 
-    public interface IAdminService
+    public interface IUsersService
     {
         UserVM GetUserVM(string username = null, User user = null);
 

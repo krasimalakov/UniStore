@@ -68,9 +68,9 @@
             }
             var manufacturers = this.Context.Manufacturers.All()
                 .Where(l => search == null || l.Name.ToLower().Contains(search.ToLower()))
-                .ToList()
                 .Skip((pageNumber - 1) * PageSize)
                 .Take(PageSize)
+                .ToList()
                 .Select(Mapper.Map<ManufacturerVM>)
                 .ToArray();
             var manufacturersCount = this.Context.Manufacturers.All()

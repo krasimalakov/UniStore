@@ -130,7 +130,7 @@
     <Compile Include="ViewModels\Account\VerifyCodeViewModel.cs" />
     <Compile Include="ViewModels\User\UserFullVM.cs" />
     <Compile Include="ViewModels\User\EditUserVM.cs" />
-    <Compile Include="ViewModels\Order\UserInvoicesVM.cs" />
+    <Compile Include="ViewModels\Order\OrdersListVM.cs" />
     <Compile Include="ViewModels\User\UserVM.cs" />
     <Compile Include="ViewModels\Category\CategorySubCategoriesVM.cs" />
     <Compile Include="ViewModels\Category\DetailsCategoryVM.cs" />

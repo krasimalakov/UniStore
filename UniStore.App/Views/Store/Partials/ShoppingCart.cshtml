@@ -1,4 +1,4 @@
-﻿@using UniStore.App.Utility
+﻿@using UniStore.App.HtmlHelperExrensions
 @using UniStore.Models
 @model UniStore.Models.ViewModels.ShoppingCard.ShoppingCardVM
 <div>
@@ -21,10 +21,10 @@
                     <tbody>
                         @foreach (var purchase in Model.Purchases)
                         {
-                            var imageUrl = Utility.ImageAbsolutePath(purchase.Product.ImageUrl);
                             <tr>
                                 <td>
-                                    <img class="media" src="@imageUrl" style="height: 72px; width: auto;" alt="no image!">
+                                    @Html.ImageFromFile(purchase.Product.ImageUrl,
+                                        @class: "media", alt: "no image!", height: "72px", width: "auto")
                                 </td>
                                 <td>
                                     <h4>

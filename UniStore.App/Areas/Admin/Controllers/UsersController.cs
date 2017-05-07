@@ -6,27 +6,25 @@
     using Attributes;
     using AutoMapper;
     using Data.UnitOfWork;
-    using Models.BindingModels;
     using Models.BindingModels.User;
     using Models.EntityModels;
     using Models.Enums;
     using Models.ViewModels.User;
-    using Services;
     using Services.Interfaces;
 
     [RouteArea("Admin", AreaPrefix = "admin")]
     [RoutePrefix("users")]
     public class UsersController : BaseController
     {
-        private readonly IAdminService service;
+        private readonly IUsersService service;
 
-        public UsersController(IUniStoreContext context, IAdminService service) 
+        public UsersController(IUniStoreContext context, IUsersService service)
             : base(context)
         {
             this.service = service;
         }
 
-        public UsersController(IUniStoreContext context, IAdminService service, User user) 
+        public UsersController(IUniStoreContext context, IUsersService service, User user)
             : base(context, user)
         {
             this.service = service;
@@ -64,7 +62,7 @@
 
         [HttpGet]
         [Route("{username}/edit")]
-        [AuthorizeInRole(AppRole.Administrator, AppRole.User, AppRole.Accountant, AppRole.Sealer)]
+        [Authorize]
         public ActionResult Edit(string username)
         {
             if (username == null)
@@ -83,7 +81,7 @@
 
         [HttpPost]
         [Route("{username}/edit")]
-        [AuthorizeInRole(AppRole.Administrator, AppRole.User, AppRole.Accountant, AppRole.Sealer)]
+        [Authorize]
         public ActionResult Edit(EditUserBM userBM)
         {
             if (!this.ModelState.IsValid)
@@ -100,7 +98,7 @@
                 return this.RedirectToAction("All");
             }
 
-            return this.RedirectToAction("Index","Store", new { area = "" });
+            return this.RedirectToAction("Index", "Store", new { area = "" });
         }
 
         [HttpGet]

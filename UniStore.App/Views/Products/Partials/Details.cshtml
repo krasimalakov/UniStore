@@ -1,12 +1,11 @@
-﻿@using UniStore.App.Utility
+﻿@using System.Web.Mvc.Html
+@using UniStore.App.HtmlHelperExrensions
 @model UniStore.Models.ViewModels.Product.DetailsProductVM
 
 <div>
-    @{ var imageUrl = Utility.ImageAbsolutePath(Model.ImageUrl); }
-
     <div class="card">
-        <div class="card-img-container">
-            <img class="card-img-top details-image" src="@imageUrl" alt="No sample image!">
+        <div class="" style="height: 300px; display: flex;">
+            @Html.ImageFromFile(Model.ImageUrl, "card-img-top product-details-image", "No sample image!")
         </div>
         <div class="card-block">
             <h4 class="card-title">@Model.Name</h4>

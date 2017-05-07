@@ -7,9 +7,10 @@
     using AutoMapper;
     using Data.UnitOfWork;
     using Models.BindingModels;
+    using Models.BindingModels.User;
     using Models.EntityModels;
     using Models.Enums;
-    using Models.ViewModels.Admin;
+    using Models.ViewModels.User;
     using Services;
     using Services.Interfaces;
 

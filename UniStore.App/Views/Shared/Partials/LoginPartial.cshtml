@@ -14,8 +14,7 @@
                     @Html.ActionLink("User profile", "Edit", "Users",
                         new { area = "Admin", username= User.Identity.GetUserName()},
                         new { @class = "dropdown-item" })
-                        @Html.ActionLink("Change password", "Index", "Manage", new { area = "" }, new { title = "Manage", @class = "dropdown-item" })
-                    @Html.ActionLink("All users", "All", "Users", new { area = "Admin" }, new { @class = "dropdown-item" })
+                    @Html.ActionLink("Change password", "Index", "Manage", new { area = "" }, new { title = "Manage", @class = "dropdown-item" })
                 </div>
             </li>
             <li class="nav-item">

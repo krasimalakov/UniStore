@@ -21,40 +21,7 @@
         public StoreService(IUniStoreContext context) : base(context)
         {
         }
-
-        public IEnumerable<DepartmentVM> GetDepartmentVMs()
-        {
-            var departments = this.Context.Departments.All().ToList();
-
-            return departments.Select(Mapper.Map<DepartmentVM>);
-        }
-
-        public DepartmentCategoriesVM GetDepartmentCategoriesVM(int departmentId)
-        {
-            var department = this.Context.Departments.Find(departmentId);
-            if (department == null)
-            {
-                return null;
-            }
-
-            var departmentVM = Mapper.Map<DepartmentCategoriesVM>(department);
-
-            return departmentVM;
-        }
-
-        public CategorySubCategoriesVM GetSubCategoryVMs(int categoryId)
-        {
-            var category = this.Context.Categories.Find(categoryId);
-            if (category == null)
-            {
-                return null;
-            }
-
-            var categoryVM = Mapper.Map<CategorySubCategoriesVM>(category);
-
-            return categoryVM;
-        }
-
+        
         public ProductsListVM GetProductsListVM(SearchProductsBM searchBM, string userId)
         {
             const int PageSize = 4;
@@ -286,7 +253,7 @@
                 return false;
             }
 
-            var invoice = new Invoice
+            var invoice = new Order
             {
                 Date = DateTime.Now,
                 DeliveryAddress = finishOrderVM.DeliveryAddress,
@@ -294,7 +261,7 @@
                 UserId = userId
             };
 
-            this.Context.Invoices.Add(invoice);
+            this.Context.Orders.Add(invoice);
             this.Context.SaveChanges();
 
             foreach (var purchaseVM in finishOrderVM.Purchases)

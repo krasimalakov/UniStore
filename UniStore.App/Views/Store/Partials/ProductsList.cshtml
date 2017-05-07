@@ -18,7 +18,7 @@
             {
                 HttpMethod = "GET",
                 InsertionMode = InsertionMode.Replace,
-                UpdateTargetId = Constants.ContainerProductsId,
+                UpdateTargetId = Constants.ContainerStoreProductsId,
                 LoadingElementId = Constants.AjaxLoadingId,
                 LoadingElementDuration = 400
             },
@@ -92,7 +92,7 @@
                             {
                                 HttpMethod = "POST",
                                 InsertionMode = InsertionMode.Replace,
-                                UpdateTargetId = Constants.ContainerProductsId
+                                UpdateTargetId = Constants.ContainerStoreProductsId
                             },
                             null))
                                 {
@@ -125,7 +125,7 @@
             new ViewDataDictionary
             {
                 { "ActionName", "ProductsList" },
-                { "TargetId", Constants.ContainerProductsId }
+                { "TargetId", Constants.ContainerStoreProductsId }
             })
     }
 }

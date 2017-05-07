@@ -8,16 +8,17 @@
     using Models.BindingModels.Manufacturer;
     using Models.BindingModels.Product;
     using Models.BindingModels.SubCategory;
+    using Models.BindingModels.User;
     using Models.EntityModels;
-    using Models.ViewModels.Admin;
     using Models.ViewModels.Category;
     using Models.ViewModels.Department;
-    using Models.ViewModels.Invoice;
     using Models.ViewModels.Manufacturer;
+    using Models.ViewModels.Order;
     using Models.ViewModels.Product;
     using Models.ViewModels.Purchase;
     using Models.ViewModels.ShoppingCard;
     using Models.ViewModels.SubCategory;
+    using Models.ViewModels.User;
 
     public class AutoMapperConfig
     {
@@ -102,7 +103,7 @@
 
                     mapper.CreateMap<Purchase, PurchaseVM>();
 
-                    mapper.CreateMap<Invoice, InvoiceVM>();
+                    mapper.CreateMap<Order, OrderVM>();
 
                     mapper.CreateMap<ShoppingCart, ShoppingCardVM>();
                 }

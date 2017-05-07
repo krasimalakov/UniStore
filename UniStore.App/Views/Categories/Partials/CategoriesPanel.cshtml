@@ -3,11 +3,11 @@
 <div class="my-nav">
     <ul>
         <li>
-            @Ajax.ActionLink("Departments", "DepartmentsPanel", "Store",
+            @Ajax.ActionLink("Departments", "DepartmentsPanel", "Departments",
                 null,
                 new AjaxOptions
                 {
-                    UpdateTargetId = Constants.ContainerCategoriesId,
+                    UpdateTargetId = Constants.ContainerStorePanelId,
                     HttpMethod = "GET",
                     LoadingElementId = Constants.AjaxLoadingId,
                     LoadingElementDuration = 400
@@ -20,7 +20,7 @@
                 new { departmentId = Model.Id },
                 new AjaxOptions
                 {
-                    UpdateTargetId = Constants.ContainerProductsId,
+                    UpdateTargetId = Constants.ContainerStoreProductsId,
                     HttpMethod = "GET",
                     LoadingElementId = Constants.AjaxLoadingId,
                     LoadingElementDuration = 400
@@ -30,14 +30,14 @@
         @foreach (var categoryVM in Model.Categories)
         {
             <li>
-                @Ajax.ActionLink($"{categoryVM.Name}", "SubCategoriesPanel", "Store",
+                @Ajax.ActionLink($"{categoryVM.Name}", "SubCategoriesPanel", "SubCategories",
                     new
                     {
                         categoryId = categoryVM.Id
                     },
                     new AjaxOptions
                     {
-                        UpdateTargetId = Constants.ContainerCategoriesId,
+                        UpdateTargetId = Constants.ContainerStorePanelId,
                         HttpMethod = "GET",
                         LoadingElementId = Constants.AjaxLoadingId,
                         LoadingElementDuration = 400
@@ -46,7 +46,7 @@
                     new { categoryId = categoryVM.Id },
                     new AjaxOptions
                     {
-                        UpdateTargetId = Constants.ContainerProductsId,
+                        UpdateTargetId = Constants.ContainerStoreProductsId,
                         HttpMethod = "GET",
                         LoadingElementId = Constants.AjaxLoadingId,
                         LoadingElementDuration = 400

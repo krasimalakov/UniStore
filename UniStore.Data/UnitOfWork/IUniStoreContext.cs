@@ -29,7 +29,7 @@
 
         IRepository<Purchase> Purchases { get; }
 
-        IRepository<Invoice> Invoices { get; }
+        IRepository<Order> Orders { get; }
 
         IRepository<ShoppingCart> ShoppingCarts { get; }
 

@@ -17,14 +17,9 @@
         {
         }
 
-        public CategorySubCategoriesVM GetCategorySubCategoriesVM(int departmentId, int categoryId)
+        public CategorySubCategoriesVM GetCategorySubCategoriesVM(int categoryId)
         {
             var category = this.Context.Categories.Find(categoryId);
-            if (category.Department.Id != departmentId)
-            {
-                return null;
-            }
-
             var categoryVM = Mapper.Map<CategorySubCategoriesVM>(category);
 
             return categoryVM;

@@ -206,6 +206,7 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\DepartmentsController.cs" />
     <Compile Include="Controllers\CategoriesController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\StoreController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -332,9 +333,9 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Store\About.cshtml" />
-    <Content Include="Views\Store\Contact.cshtml" />
-    <Content Include="Views\Store\Index.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
     <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
@@ -390,15 +391,16 @@
     <Content Include="Views\SubCategories\Partials\Details.cshtml" />
     <Content Include="Views\Shared\Partials\AjaxActionLinks\BackToProductList.cshtml" />
     <Content Include="Views\SubCategories\Details.cshtml" />
-    <Content Include="Views\Store\Products.cshtml" />
-    <Content Include="Views\Store\Partials\DepartmentsPanel.cshtml" />
-    <Content Include="Views\Store\Partials\CategoriesPanel.cshtml" />
-    <Content Include="Views\Store\Partials\SubCategoriesPanel.cshtml" />
+    <Content Include="Views\Store\Store.cshtml" />
+    <Content Include="Views\Departments\Partials\DepartmentsPanel.cshtml" />
+    <Content Include="Views\Categories\Partials\CategoriesPanel.cshtml" />
+    <Content Include="Views\SubCategories\Partials\SubCategoriesPanel.cshtml" />
     <Content Include="Views\Store\Partials\ProductsList.cshtml" />
     <Content Include="Views\Store\Partials\ProductListPagination.cshtml" />
     <Content Include="Views\Store\Partials\ShoppingCart.cshtml" />
     <Content Include="Views\Store\Partials\FinishOrder.cshtml" />
     <Content Include="Views\Store\Partials\ProductsListSearchPanel.cshtml" />
+    <Content Include="Views\Store\UserOrders.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Admin\Views\Shared\" />

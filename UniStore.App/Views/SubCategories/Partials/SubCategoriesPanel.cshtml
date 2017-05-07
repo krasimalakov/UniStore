@@ -3,10 +3,10 @@
 <div class="my-nav">
     <ul>
         <li>
-            @Ajax.ActionLink("Departments", "DepartmentsPanel", "Store", null,
+            @Ajax.ActionLink("Departments", "DepartmentsPanel", "Departments", null,
                 new AjaxOptions
                 {
-                    UpdateTargetId = Constants.ContainerCategoriesId,
+                    UpdateTargetId = Constants.ContainerStorePanelId,
                     HttpMethod = "GET",
                     LoadingElementId = Constants.AjaxLoadingId,
                     LoadingElementDuration = 400
@@ -15,11 +15,11 @@
         </li>
         <li class="nav-divider"></li>
         <li>
-            @Ajax.ActionLink($"{Model.DepartmentName}", "CategoriesPanel", "Store",
+            @Ajax.ActionLink($"{Model.DepartmentName}", "CategoriesPanel", "Categories",
                 new { departmentId = Model.DepartmentId },
                 new AjaxOptions
                 {
-                    UpdateTargetId = Constants.ContainerCategoriesId,
+                    UpdateTargetId = Constants.ContainerStorePanelId,
                     HttpMethod = "GET",
                     LoadingElementId = Constants.AjaxLoadingId,
                     LoadingElementDuration = 400
@@ -34,7 +34,7 @@
                 },
                 new AjaxOptions
                 {
-                    UpdateTargetId = Constants.ContainerProductsId,
+                    UpdateTargetId = Constants.ContainerStoreProductsId,
                     HttpMethod = "GET",
                     LoadingElementId = Constants.AjaxLoadingId,
                     LoadingElementDuration = 400
@@ -51,7 +51,7 @@
                     },
                     new AjaxOptions
                     {
-                        UpdateTargetId = Constants.ContainerProductsId,
+                        UpdateTargetId = Constants.ContainerStoreProductsId,
                         HttpMethod = "GET",
                         LoadingElementId = Constants.AjaxLoadingId,
                         LoadingElementDuration = 400

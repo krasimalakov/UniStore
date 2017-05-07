@@ -7,6 +7,7 @@
     using Data.UnitOfWork;
     using Microsoft.AspNet.Identity;
     using Models.BindingModels;
+    using Models.BindingModels.Order;
     using Models.BindingModels.Product;
     using Models.EntityModels;
     using Models.Enums;
@@ -29,57 +30,15 @@
             this.service = service;
         }
 
-        public ActionResult Index()
-        {
-            if (this.Request.IsAuthenticated &&
-                this.User.IsInRole(Enum.GetName(typeof(AppRole), AppRole.Administrator)))
-            {
-                return this.RedirectToAction("All", "Departments");
-            }
-
-            return this.RedirectToAction("Products");
-        }
-
-        [Route("products")]
-        public ActionResult Products()
+        [HttpGet]
+        [Route]
+        public ActionResult Store()
         {
             return this.View();
         }
-
-        [Route("departments")]
-        public ActionResult DepartmentsPanel()
-        {
-            var departmentVMs = this.service.GetDepartmentVMs();
-            return this.PartialView("Partials/DepartmentsPanel", departmentVMs);
-        }
-
-        [Route(@"categories/{departmentId:regex(\d+)}")]
-        public ActionResult CategoriesPanel(int departmentId)
-        {
-            var categoriesVM = this.service.GetDepartmentCategoriesVM(departmentId);
-            if (categoriesVM == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
-            }
-
-            return this.PartialView("Partials/CategoriesPanel", categoriesVM);
-        }
-
-        [Route(@"category/{categoryId:regex(\d+)}/subcategories")]
-        public ActionResult SubCategoriesPanel(int categoryId)
-        {
-            var subCategoriesVM = this.service.GetSubCategoryVMs(categoryId);
-            if (subCategoriesVM == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
-            }
-
-            return this.PartialView("Partials/SubCategoriesPanel", subCategoriesVM);
-        }
-
+        
         [HttpGet]
-        [Route(@"products-list/{subCategoryId:regex(\d+)}")]
-        [Route("products-list")]
+        [Route("products")]
         public ActionResult ProductsList(SearchProductsBM searchProductsBM)
         {
             var userId = this.User.Identity.GetUserId();
@@ -178,16 +137,16 @@
             return this.RedirectToAction("ProductsList", finishOrderBM.SearchProductsBM);
         }
 
-        public ActionResult About()
+        [HttpGet]
+        [AuthorizeInRole(AppRole.User)]
+        [Route("shopping-cart/user-orders")]
+        public ActionResult UserOrders()
         {
-            this.ViewBag.Message = "Your application description page.";
-
-            return this.View();
-        }
-
-        public ActionResult Contact()
-        {
-            this.ViewBag.Message = "Your contact page.";
+            //var userOrdersVM = this.service.GetUserOrdersVM(this.User.Identity.GetUserId());
+            //if (userOrdersVM == null)
+            //{
+            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            //}
 
             return this.View();
         }

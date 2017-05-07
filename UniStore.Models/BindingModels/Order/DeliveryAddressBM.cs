@@ -1,12 +1,9 @@
-﻿namespace UniStore.Models.BindingModels
+﻿namespace UniStore.Models.BindingModels.Order
 {
     using System.ComponentModel.DataAnnotations;
-    using Product;
 
-    public class FinishOrderBM
+    public class DeliveryAddressBM
     {
-        public SearchProductsBM SearchProductsBM { get; set; }
-
         [Required]
         [MinLength(15, ErrorMessage = "{0} must be at least {1} symbols long!")]
         public string DeliveryAddress { get; set; }

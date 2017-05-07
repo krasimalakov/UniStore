@@ -46,8 +46,8 @@
         public IRepository<Purchase> Purchases =>
             this.GetRepository<Purchase>();
 
-        public IRepository<Invoice> Invoices =>
-            this.GetRepository<Invoice>();
+        public IRepository<Order> Orders =>
+            this.GetRepository<Order>();
 
         public IRepository<ShoppingCart> ShoppingCarts =>
             this.GetRepository<ShoppingCart>();

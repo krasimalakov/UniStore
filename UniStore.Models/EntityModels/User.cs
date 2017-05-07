@@ -17,7 +17,7 @@
 
         public virtual ShoppingCart ShoppingCart { get; set; }
 
-        public virtual List<Invoice> Invoices { get; set; }=new List<Invoice>();
+        public virtual List<Order> Orders { get; set; }=new List<Order>();
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<User> manager)
         {

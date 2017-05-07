@@ -6,7 +6,7 @@
 
     public interface ISubCategoriesService
     {
-        CategorySubCategoriesVM GetCategorySubCategoriesVM(int departmentId, int categoryId);
+        CategorySubCategoriesVM GetCategorySubCategoriesVM(int categoryId);
 
         bool IsExistSubCategoryWithName(int departmentId, int categoryId, string name);
 

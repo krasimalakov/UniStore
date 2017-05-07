@@ -95,11 +95,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BindingModels\Category\CategoryBM.cs" />
-    <Compile Include="BindingModels\DeliveryAddressBM.cs" />
+    <Compile Include="BindingModels\Order\DeliveryAddressBM.cs" />
     <Compile Include="BindingModels\Departments\EditDepartmentBM.cs" />
     <Compile Include="BindingModels\Departments\AddDepartmentBM.cs" />
-    <Compile Include="BindingModels\EditUserBM.cs" />
-    <Compile Include="BindingModels\FinishOrderBM.cs" />
+    <Compile Include="BindingModels\User\EditUserBM.cs" />
+    <Compile Include="BindingModels\Order\FinishOrderBM.cs" />
     <Compile Include="BindingModels\Manufacturer\EditManufacturerBM.cs" />
     <Compile Include="BindingModels\Manufacturer\AddManufacturerBM.cs" />
     <Compile Include="BindingModels\Product\EditProductBM.cs" />
@@ -114,7 +114,7 @@
     <Compile Include="EntityModels\Product.cs" />
     <Compile Include="EntityModels\Manufacturer.cs" />
     <Compile Include="EntityModels\Purchase.cs" />
-    <Compile Include="EntityModels\Invoice.cs" />
+    <Compile Include="EntityModels\Order.cs" />
     <Compile Include="EntityModels\ShoppingCart.cs" />
     <Compile Include="EntityModels\User.cs" />
     <Compile Include="Enums\AppRole.cs" />
@@ -128,9 +128,10 @@
     <Compile Include="ViewModels\Account\ResetPasswordViewModel.cs" />
     <Compile Include="ViewModels\Account\SendCodeViewModel.cs" />
     <Compile Include="ViewModels\Account\VerifyCodeViewModel.cs" />
-    <Compile Include="ViewModels\Admin\UserFullVM.cs" />
-    <Compile Include="ViewModels\Admin\EditUserVM.cs" />
-    <Compile Include="ViewModels\Admin\UserVM.cs" />
+    <Compile Include="ViewModels\User\UserFullVM.cs" />
+    <Compile Include="ViewModels\User\EditUserVM.cs" />
+    <Compile Include="ViewModels\Order\UserInvoicesVM.cs" />
+    <Compile Include="ViewModels\User\UserVM.cs" />
     <Compile Include="ViewModels\Category\CategorySubCategoriesVM.cs" />
     <Compile Include="ViewModels\Category\DetailsCategoryVM.cs" />
     <Compile Include="ViewModels\Category\RenameCategoryVM.cs" />
@@ -140,7 +141,7 @@
     <Compile Include="ViewModels\Department\DetailsDepartmentVM.cs" />
     <Compile Include="ViewModels\Department\DepartmentVM.cs" />
     <Compile Include="ViewModels\InputImageFormGroupVM.cs" />
-    <Compile Include="ViewModels\Invoice\InvoiceVM.cs" />
+    <Compile Include="ViewModels\Order\OrderVM.cs" />
     <Compile Include="ViewModels\Manage\AddPhoneNumberViewModel.cs" />
     <Compile Include="ViewModels\Manage\ChangePasswordViewModel.cs" />
     <Compile Include="ViewModels\Manage\ConfigureTwoFactorViewModel.cs" />

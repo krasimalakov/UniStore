@@ -1,4 +1,4 @@
-﻿namespace UniStore.Models.ViewModels.Admin
+﻿namespace UniStore.Models.ViewModels.User
 {
     using System.Web.Mvc;
 

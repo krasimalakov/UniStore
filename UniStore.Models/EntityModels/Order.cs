@@ -5,9 +5,9 @@
     using System.ComponentModel.DataAnnotations;
     using System.Linq;
 
-    public class Invoice
+    public class Order
     {
-        public Invoice()
+        public Order()
         {
             this.Purchases = new List<Purchase>();
         }

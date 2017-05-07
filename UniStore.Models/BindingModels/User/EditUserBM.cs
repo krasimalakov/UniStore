@@ -1,4 +1,4 @@
-﻿namespace UniStore.Models.BindingModels
+﻿namespace UniStore.Models.BindingModels.User
 {
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;

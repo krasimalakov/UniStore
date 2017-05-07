@@ -31,9 +31,9 @@
 
         [HttpGet]
         [Route(@"{departmentId:regex(\d+)}/{categoryId:regex(\d+)}")]
-        public ActionResult SubCategoriesList(int departmentId, int categoryId)
+        public ActionResult SubCategoriesList(int categoryId)
         {
-            var categoryVM = this.service.GetCategorySubCategoriesVM(departmentId, categoryId);
+            var categoryVM = this.service.GetCategorySubCategoriesVM(categoryId);
             return this.PartialView("Partials/SubCategoriesList", categoryVM);
         }
 
@@ -53,6 +53,20 @@
             }
 
             return this.PartialView(subCategoryVM);
+        }
+
+        [HttpGet]
+        [Route(@"category/{categoryId:regex(\d+)}/panel")]
+        [AllowAnonymous]
+        public ActionResult SubCategoriesPanel(int categoryId)
+        {
+            var subCategoriesVM = this.service.GetCategorySubCategoriesVM(categoryId);
+            if (subCategoriesVM == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+            }
+
+            return this.PartialView("Partials/SubCategoriesPanel", subCategoriesVM);
         }
 
         [HttpGet]

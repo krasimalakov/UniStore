@@ -70,6 +70,15 @@
         }
 
         [HttpGet]
+        [Route("panel")]
+        [AllowAnonymous]
+        public ActionResult DepartmentsPanel()
+        {
+            var departmentVMs = this.service.GetDepartmentVMs();
+            return this.PartialView("Partials/DepartmentsPanel", departmentVMs);
+        }
+
+        [HttpGet]
         [Route("add")]
         public ActionResult Add()
         {

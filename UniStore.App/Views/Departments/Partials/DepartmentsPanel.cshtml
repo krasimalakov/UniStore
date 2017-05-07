@@ -7,7 +7,7 @@
                 null,
                 new AjaxOptions
                 {
-                    UpdateTargetId = Constants.ContainerProductsId,
+                    UpdateTargetId = Constants.ContainerStoreProductsId,
                     HttpMethod = "GET",
                     LoadingElementId = Constants.AjaxLoadingId,
                     LoadingElementDuration = 400
@@ -18,11 +18,11 @@
         @foreach (var departmentVM in Model)
         {
             <li>
-                @Ajax.ActionLink($"{departmentVM.Name}", "CategoriesPanel", "Store",
+                @Ajax.ActionLink($"{departmentVM.Name}", "CategoriesPanel", "Categories",
                     new { departmentId = departmentVM.Id },
                     new AjaxOptions
                     {
-                        UpdateTargetId = Constants.ContainerCategoriesId,
+                        UpdateTargetId = Constants.ContainerStorePanelId,
                         HttpMethod = "GET",
                         LoadingElementId = Constants.AjaxLoadingId,
                         LoadingElementDuration = 400
@@ -31,7 +31,7 @@
                     new { departmentId = departmentVM.Id },
                     new AjaxOptions
                     {
-                        UpdateTargetId = Constants.ContainerProductsId,
+                        UpdateTargetId = Constants.ContainerStoreProductsId,
                         HttpMethod = "GET",
                         LoadingElementId = Constants.AjaxLoadingId,
                         LoadingElementDuration = 400

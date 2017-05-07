@@ -28,6 +28,7 @@
         {
             this.service = service;
         }
+
         [HttpGet]
         [Route(@"{departmentId:regex(\d+)}/{categoryId:regex(\d+)}")]
         public ActionResult Details(int departmentId, int categoryId)
@@ -45,6 +46,21 @@
 
             return this.View(categoryVM);
         }
+
+        [HttpGet]
+        [Route(@"{departmentId:regex(\d+)}/panel")]
+        [AllowAnonymous]
+        public ActionResult CategoriesPanel(int departmentId)
+        {
+            var categoriesVM = this.service.GetDepartmentCategoriesVM(departmentId);
+            if (categoriesVM == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+            }
+
+            return this.PartialView("Partials/CategoriesPanel", categoriesVM);
+        }
+
 
         [HttpGet]
         [Route(@"{departmentId:regex(\d+)}")]

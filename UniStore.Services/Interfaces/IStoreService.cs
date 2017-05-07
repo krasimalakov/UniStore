@@ -1,22 +1,12 @@
 ﻿namespace UniStore.Services.Interfaces
 {
-    using System;
-    using System.Collections.Generic;
     using Models.BindingModels.Product;
     using Models.EntityModels;
-    using Models.ViewModels.Category;
-    using Models.ViewModels.Department;
     using Models.ViewModels.Product;
     using Models.ViewModels.ShoppingCard;
 
     public interface IStoreService
     {
-        IEnumerable<DepartmentVM> GetDepartmentVMs();
-
-        DepartmentCategoriesVM GetDepartmentCategoriesVM(int departmentId);
-
-        CategorySubCategoriesVM GetSubCategoryVMs(int categoryId);
-
         ProductsListVM GetProductsListVM(SearchProductsBM searchBM, string userId);
 
         ShoppingCart GetUserShoppingCard(string userId);

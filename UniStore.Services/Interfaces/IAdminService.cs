@@ -2,8 +2,9 @@ namespace UniStore.Services.Interfaces
 {
     using System.Collections.Generic;
     using Models.BindingModels;
+    using Models.BindingModels.User;
     using Models.EntityModels;
-    using Models.ViewModels.Admin;
+    using Models.ViewModels.User;
 
     public interface IAdminService
     {

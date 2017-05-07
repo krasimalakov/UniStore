@@ -9,8 +9,9 @@
     using Interfaces;
     using Microsoft.AspNet.Identity;
     using Models.BindingModels;
+    using Models.BindingModels.User;
     using Models.EntityModels;
-    using Models.ViewModels.Admin;
+    using Models.ViewModels.User;
 
     public class AdminService : BaseService, IAdminService
     {

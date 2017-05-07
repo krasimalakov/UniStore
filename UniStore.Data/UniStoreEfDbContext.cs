@@ -23,7 +23,7 @@ namespace UniStore.Data
 
         public DbSet<Purchase> Purchases { get; set; }
 
-        public DbSet<Invoice> Invoices { get; set; }
+        public DbSet<Order> Orders { get; set; }
 
         public virtual DbSet<ShoppingCart> ShoppingCarts { get; set; }
 

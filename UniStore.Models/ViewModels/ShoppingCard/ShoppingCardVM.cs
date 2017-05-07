@@ -1,12 +1,9 @@
 ﻿namespace UniStore.Models.ViewModels.ShoppingCard
 {
-    using System;
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
     using BindingModels.Product;
-    using EntityModels;
-    using Invoice;
     using Purchase;
 
     public class ShoppingCardVM

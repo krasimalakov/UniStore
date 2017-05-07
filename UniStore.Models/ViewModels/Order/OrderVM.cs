@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace UniStore.Models.ViewModels.Invoice
+﻿namespace UniStore.Models.ViewModels.Order
 {
-    using System.ComponentModel.DataAnnotations;
+    using System;
+    using System.Collections.Generic;
     using EntityModels;
     using Purchase;
 
-    public class InvoiceVM
+    public class OrderVM
     {
         public int Id { get; set; }
 

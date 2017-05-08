@@ -60,5 +60,18 @@
 
             return ordersListVM;
         }
+
+        public OrderVM GetOrderVM(int orderId)
+        {
+            var order = this.Context.Orders.Find(orderId);
+            if (order == null)
+            {
+                return null;
+            }
+
+            var orderVM = Mapper.Map<OrderVM>(order);
+
+            return orderVM;
+        }
     }
 }

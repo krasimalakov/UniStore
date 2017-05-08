@@ -8,5 +8,7 @@
         bool IsExistUser(string username);
 
         OrdersListVM GetOrdersVM(Pagination pagination);
+
+        OrderVM GetOrderVM(int orderId);
     }
 }

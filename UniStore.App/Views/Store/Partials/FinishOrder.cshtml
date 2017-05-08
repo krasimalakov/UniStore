@@ -2,7 +2,7 @@
 @using UniStore.Models
 @model UniStore.Models.ViewModels.ShoppingCard.ShoppingCardVM
 
-<h2 id="test">Finishing the order</h2>
+<h2>Finishing the order</h2>
 <hr />
 
 <div class="col-md-10">
@@ -14,7 +14,7 @@
             UpdateTargetId = Constants.ContainerStoreProductsId,
             LoadingElementId = Constants.AjaxLoadingId,
             LoadingElementDuration = 400,
-            OnSuccess = "alert('Order is completed!');"
+            OnComplete = " $('#dialog').dialog('open'); $('#continue-shopping').trigger('click')"
         }))
     {
         @Html.AntiForgeryToken()
@@ -51,9 +51,6 @@
                                 <td>
                                     @purchase.Product.Name;
                                 </td>
-                                <td>
-                                    @purchase.Price
-                                </td>
                                 <td class="text-center col-md-1">
                                     @purchase.Quantity
                                 </td>
@@ -67,9 +64,7 @@
                         }
 
                         <tr>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
+                            <td colspan="3"> </td>
                             <td>
                                 <h3>Total</h3>
                             </td>
@@ -120,10 +115,25 @@
                             LoadingElementId = Constants.AjaxLoadingId,
                             LoadingElementDuration = 400
                         },
-                        new { @class = "btn btn-primary fa fa-shopping-cart" })
+                        new { @class = "btn btn-primary fa fa-shopping-cart", id="continue-shopping" })
                 </div>
+            </div>
+            <div id="dialog" title="Report">
+                <h3>Order complete successfully!</h3>
             </div>
         </div>
     }
 </div>
 
+@Scripts.Render("~/bundles/jqueryval")
+
+<script>
+    $(function() {
+        $("#dialog").dialog({
+            autoOpen: false,
+            width: 'auto',
+            height: 'auto',
+            modal: true
+        });
+    });
+</script>

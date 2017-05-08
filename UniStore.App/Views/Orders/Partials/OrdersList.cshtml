@@ -1,0 +1,97 @@
+﻿@using UniStore.Models
+@model UniStore.Models.ViewModels.Order.OrdersListVM
+
+
+@if (Model.Orders.Any())
+{
+    <table class="table table-hover">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Orders[0].Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Orders[0].Date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Orders[0].User.UserName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Orders[0].Total)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var order in Model.Orders)
+        {
+            <tr>
+                <td>
+                    @Ajax.ActionLink(order.Id.ToString(), "Details", "Orders",
+                        new
+                        {
+                            orderId = order.Id,
+                            Model.Pagination.Search,
+                            Model.Pagination.Page
+                        },
+                        new AjaxOptions
+                        {
+                            HttpMethod = "GET",
+                            UpdateTargetId = Constants.ContainerOrderListId,
+                            LoadingElementId = Constants.AjaxLoadingId,
+                            LoadingElementDuration = 400,
+                        },
+                        new { @class = "font-weight-bold" })
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => order.Date)
+                </td>
+                <td>
+                    @Ajax.ActionLink(order.User.UserName, "OrdersList", "Orders",
+                        new { search=order.User.UserName },
+                        new AjaxOptions
+                        {
+                            HttpMethod = "GET",
+                            UpdateTargetId = Constants.ContainerOrderListId,
+                            LoadingElementId = Constants.AjaxLoadingId,
+                            LoadingElementDuration = 400
+                        },
+                        new { @class = "font-weight-bold" })
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => order.Total)
+                </td>
+                <td>
+                    
+                </td>
+            </tr>
+        }
+
+    </table>
+
+    @Ajax.ActionLink("All orders", "OrdersList", "Orders",
+        new
+        {
+            Model.Pagination.Search
+        },
+        new AjaxOptions
+        {
+            HttpMethod = "GET",
+            UpdateTargetId = Constants.ContainerOrderListId,
+            LoadingElementId = Constants.AjaxLoadingId,
+            LoadingElementDuration = 400
+        },
+        new { @class = "btn btn-lg btn-success" })
+
+    @Html.Partial("Partials/PaginationAjax", Model.Pagination,
+        new ViewDataDictionary
+        {
+            { "ActionName", "OrdersList" },
+            { "TargetId", Constants.ContainerOrderListId }
+        })
+}else
+{
+    <h3>No orders!</h3>
+}
+
+
+
+

@@ -7,6 +7,7 @@
     using Models;
     using Models.EntityModels;
     using Models.Enums;
+    using Models.ViewModels.Order;
     using Services.Interfaces;
 
     [RoutePrefix("orders")]
@@ -79,7 +80,44 @@
             var ordersListVM = this.service.GetOrdersVM(pagination);
 
 
-            return this.PartialView(ordersListVM);
+            return this.PartialView("Partials/OrdersList", ordersListVM);
+        }
+
+        [HttpGet]
+        [Authorize]
+        [Route(@"{orderId:regex(\d+)}")]
+        public ActionResult Details(int orderId, Pagination pagination)
+        {
+            var orderVM = this.service.GetOrderVM(orderId);
+            if (orderVM == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+            }
+
+            if (!this.User.IsInRole(Enum.GetName(typeof(AppRole), AppRole.Administrator)))
+            {
+                var username = this.User.Identity.Name;
+                if (!string.Equals(username, orderVM.User.UserName))
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
+                }
+            }
+
+            var detailOrderVM=new DetailsOrderVM
+            {
+                Order = orderVM,
+                Pagination = pagination
+            };
+
+            return this.PartialView("Partials/Details", detailOrderVM);
+        }
+
+        [HttpPost]
+        [Authorize]
+        [Route(@"{orderId:regex(\d+)}/update")]
+        public ActionResult UpdateOrder(int orderId, Pagination pagination)
+        {
+            return null;
         }
     }
 }

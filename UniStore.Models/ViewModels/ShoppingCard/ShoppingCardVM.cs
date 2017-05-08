@@ -22,5 +22,7 @@
         public string DeliveryAddress { get; set; }
 
         public SearchProductsBM SearchProductsBM { get; set; }
+
+        public bool IsAnyPurchaseOnStock { get; set; }
     }
 }

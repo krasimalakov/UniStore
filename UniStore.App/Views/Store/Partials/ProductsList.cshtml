@@ -3,26 +3,24 @@
 @using UniStore.Models.Enums
 @model UniStore.Models.ViewModels.Product.ProductsListVM
 
-<div class="row user-panel">
+<div class="search-panel">
     @*Search form*@
-    <div class="col-md-10">
-        @Html.Partial("Partials/ProductsListSearchPanel", Model.SearchProductsBM)
-    </div>
+    @Html.Partial("Partials/ProductsListSearchPanel", Model.SearchProductsBM)
 
     @*Shopping cart button*@
     @if (Request.RequestContext.HttpContext.User.IsInRole(Enum.GetName(typeof(AppRole), AppRole.User)))
     {
         <div id="shopping-cart">
             @using (Ajax.BeginForm("ShoppingCart", "Store", null,
-                    new AjaxOptions
-                    {
-                        HttpMethod = "GET",
-                        InsertionMode = InsertionMode.Replace,
-                        UpdateTargetId = Constants.ContainerStoreProductsId,
-                        LoadingElementId = Constants.AjaxLoadingId,
-                        LoadingElementDuration = 400
-                    },
-                    null))
+                new AjaxOptions
+                {
+                    HttpMethod = "GET",
+                    InsertionMode = InsertionMode.Replace,
+                    UpdateTargetId = Constants.ContainerStoreProductsId,
+                    LoadingElementId = Constants.AjaxLoadingId,
+                    LoadingElementDuration = 400
+                },
+                null))
             {
                 @Html.HiddenFor(model => model.SearchProductsBM.DepartmentId)
                 @Html.HiddenFor(model => model.SearchProductsBM.CategoryId)
@@ -60,22 +58,24 @@
                 count++;
 
                 <div class="card col-md-3">
-                    <div class="card-img-container">
-                        @Html.ImageFromFile(product.ImageUrl, "card-img-top product-list-image", "No sample image!")
-                    </div>
+                    <a href="#" onclick="$('#product-@product.Id-details').trigger('click');return false;">
+                        <div class="card-img-container">
+                            @Html.ImageFromFile(product.ImageUrl, "card-img-top product-list-image", "No sample image!")
+                        </div>
+                    </a>
                     <div class="card-block">
                         <h4 class="card-title">
                             @Ajax.ActionLink(product.Name, "Details", "Products",
-                                    new { id = product.Id },
-                                    new AjaxOptions
-                                    {
-                                        HttpMethod = "GET",
-                                        UpdateTargetId = "result",
-                                        InsertionMode = InsertionMode.Replace,
-                                        LoadingElementId = Constants.AjaxLoadingId,
-                                        LoadingElementDuration = 400,
-                                        OnSuccess = "openPopup"
-                                    }, new { @class = "" })
+                                new { id = product.Id },
+                                new AjaxOptions
+                                {
+                                    HttpMethod = "GET",
+                                    UpdateTargetId = "result",
+                                    InsertionMode = InsertionMode.Replace,
+                                    LoadingElementId = Constants.AjaxLoadingId,
+                                    LoadingElementDuration = 400,
+                                    OnSuccess = "openPopup"
+                                }, new { id = $"product-{product.Id}-details" })
                         </h4>
                         <p class="card-text">
                             Price: <strong>@product.Price</strong>
@@ -87,13 +87,13 @@
                         {
                             <div>
                                 @using (Ajax.BeginForm("AddProductToShoppingCart", "Store", null,
-            new AjaxOptions
-            {
-                HttpMethod = "POST",
-                InsertionMode = InsertionMode.Replace,
-                UpdateTargetId = Constants.ContainerStoreProductsId
-            },
-            null))
+                                    new AjaxOptions
+                                    {
+                                        HttpMethod = "POST",
+                                        InsertionMode = InsertionMode.Replace,
+                                        UpdateTargetId = Constants.ContainerStoreProductsId
+                                    },
+                                    null))
                                 {
                                     @Html.HiddenFor(model => model.SearchProductsBM.DepartmentId)
                                     @Html.HiddenFor(model => model.SearchProductsBM.CategoryId)
@@ -104,7 +104,7 @@
                                     @Html.HiddenFor(model => model.SearchProductsBM.OrderBy)
 
                                     <div>
-                                        <input type="hidden" name="productId" value="@product.Id" />
+                                        <input type="hidden" name="productId" value="@product.Id"/>
                                         <button type="submit" class="btn btn-primary btn-lg">
                                             Buy
                                         </button>
@@ -114,10 +114,9 @@
                         }
                     </div>
                 </div>
-
             }
         </div>
-        <br />
+        <br/>
 
         // pagination
         @Html.Partial("Partials/ProductListPagination", Model.SearchProductsBM,
@@ -132,7 +131,7 @@
 <div id="result" style="overflow: hidden;"></div>
 
 <script>
-    $(function () {
+    $(function() {
         $("#result").dialog({
             autoOpen: false,
             width: 'auto',

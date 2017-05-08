@@ -1,0 +1,91 @@
+﻿@using UniStore.App.HtmlHelperExrensions
+@using UniStore.Models
+@model UniStore.Models.ViewModels.Order.DetailsOrderVM
+
+<h4>Order: <strong>@Model.Order.Id</strong>/@Model.Order.Date</h4>
+
+<div class="row">
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th colspan="2">Product</th>
+            <th>Quantity</th>
+            <th class="text-center">Price</th>
+            <th class="text-center">Total</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var purchase in Model.Order.Purchases)
+        {
+            <tr>
+                <td>
+                    @Html.ImageFromFile(purchase.Product.ImageUrl,
+                        "media", "no image!", height: "72px", width: "auto")
+                </td>
+                <td>
+                    @purchase.Product.Name;
+                </td>
+                <td>
+                    @purchase.Quantity
+                </td>
+                <td class="text-center col-md-1">
+                    @purchase.Price
+                </td>
+                <td class="text-center">
+                    @purchase.Value
+                </td>
+            </tr>
+        }
+
+        <tr>
+            <td colspan="3"> </td>
+            <td>
+                <h3>Total</h3>
+            </td>
+            <td class="text-center">
+                <h3>
+                    <strong>@Model.Order.Total</strong>
+                </h3>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="row">
+    @Html.LabelFor(model => model.Order.DeliveryAddress):
+    <strong>@Html.DisplayFor(model => model.Order.DeliveryAddress)</strong>
+</div>
+<hr/>
+<div class="row">
+    <div class="col-md-2 offset-5">
+        @Ajax.ActionLink($"Buyer {Model.Order.User.UserName} orders", "OrdersList", "Orders",
+            new { search = Model.Order.User.UserName },
+            new AjaxOptions
+            {
+                HttpMethod = "GET",
+                UpdateTargetId = Constants.ContainerOrderListId,
+                LoadingElementId = Constants.AjaxLoadingId,
+                LoadingElementDuration = 400
+            },
+            new { @class = "btn btn-primary" })
+    </div>
+    <div class="col-md-2">
+        @Ajax.ActionLink(" Back", "OrdersList", "Orders",
+            new
+            {
+                Model.Pagination.Search,
+                Model.Pagination.Page
+            },
+            new AjaxOptions
+            {
+                UpdateTargetId = Constants.ContainerOrderListId,
+                HttpMethod = "GET",
+                LoadingElementId = Constants.AjaxLoadingId,
+                LoadingElementDuration = 400
+            },
+            new { @class = "btn btn-success" })
+    </div>
+</div>
+
+@Scripts.Render("~/bundles/jqueryval")

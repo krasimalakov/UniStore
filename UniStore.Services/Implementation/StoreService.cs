@@ -10,8 +10,6 @@
     using Models;
     using Models.BindingModels.Product;
     using Models.EntityModels;
-    using Models.ViewModels.Category;
-    using Models.ViewModels.Department;
     using Models.ViewModels.Product;
     using Models.ViewModels.Purchase;
     using Models.ViewModels.ShoppingCard;
@@ -21,7 +19,7 @@
         public StoreService(IUniStoreContext context) : base(context)
         {
         }
-        
+
         public ProductsListVM GetProductsListVM(SearchProductsBM searchBM, string userId)
         {
             const int PageSize = 4;
@@ -39,6 +37,7 @@
                 OrderList = new SelectList(Constants.Order),
                 OrderByList = new SelectList(Constants.OrderBy)
             };
+
             var pageNumber = search.Page;
             if (pageNumber < 1)
             {
@@ -148,6 +147,8 @@
 
             shoppingCardVM.Total = shoppingCardVM.Purchases.Sum(p => p.Value);
             shoppingCardVM.SearchProductsBM = searchProductsBM;
+            shoppingCardVM.IsAnyPurchaseOnStock = shoppingCardVM.Purchases
+                .Any(pu => pu.Quantity > 0 && pu.Product.Quantity >= pu.Quantity);
 
             return shoppingCardVM;
         }
@@ -172,6 +173,11 @@
             finishOrderVM.Purchases = purchasesToBuy;
 
             finishOrderVM.Total = purchasesToBuy.Sum(p => p.Value);
+
+            if (finishOrderVM.Total == 0)
+            {
+                return null;
+            }
 
             return finishOrderVM;
         }

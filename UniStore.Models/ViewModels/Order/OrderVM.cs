@@ -16,5 +16,8 @@
         public List<PurchaseVM> Purchases { get; set; }
 
         public decimal Total { get; set; }
+
+        public string DeliveryAddress { get; set; }
+
     }
 }

@@ -151,9 +151,25 @@ a.submenu2:after { content: ""; }
     margin: auto;
 }
 
+.search-panel {
+    padding-bottom: 5px;
+    margin-bottom: 5px;
+    border-bottom: 1px solid #2FA4E7;
+    display: flex;
+    /*background-image: linear-gradient(#54b4eb, #2FA4E7 60%, #1d9ce5);
+    background-repeat: no-repeat;*/
+}
+
+#search-products {
+    width: 200px;
+}
+
+#search-products-group{
+    margin-right: 25px;
+}
 #shopping-cart {
     margin-left: auto;
-    margin-right: 15px;
+    margin-right: 0px;
 }
 
 .btn .badge {
@@ -164,13 +180,6 @@ a.submenu2:after { content: ""; }
 
 .fa-badge{
     margin-right: -10px;
-}
-.user-panel {
-    padding-bottom: 5px;
-    margin-bottom: 5px;
-    border-bottom: 1px solid #2FA4E7;
-    /*background-image: linear-gradient(#54b4eb, #2FA4E7 60%, #1d9ce5);
-    background-repeat: no-repeat;*/
 }
 
 #upload-file-info {

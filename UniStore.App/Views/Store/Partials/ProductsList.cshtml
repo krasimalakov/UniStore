@@ -70,11 +70,11 @@
                                 new AjaxOptions
                                 {
                                     HttpMethod = "GET",
-                                    UpdateTargetId = "result",
+                                    UpdateTargetId = "product-details",
                                     InsertionMode = InsertionMode.Replace,
                                     LoadingElementId = Constants.AjaxLoadingId,
                                     LoadingElementDuration = 400,
-                                    OnSuccess = "openPopup"
+                                    OnSuccess = "$('#product-details').dialog('open');"
                                 }, new { id = $"product-{product.Id}-details" })
                         </h4>
                         <p class="card-text">
@@ -128,20 +128,15 @@
     }
 }
 
-<div id="result" style="overflow: hidden;"></div>
+<div id="product-details" title="Product details" style="overflow: hidden;"></div>
 
 <script>
     $(function() {
-        $("#result").dialog({
+        $("#product-details").dialog({
             autoOpen: false,
             width: 'auto',
             height: 'auto',
-            title: 'Product details',
             modal: true
         });
     });
-
-    function openPopup() {
-        $("#result").dialog("open");
-    }
 </script>

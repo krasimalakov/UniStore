@@ -218,9 +218,11 @@
     </Compile>
     <Compile Include="HtmlHelperExrensions\HtmlHelperExrensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <None Include="Views\Shared\DisplayTemplates\OrderStatus.cshtml" />
     <Content Include="Content\favicon.ico" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
+    <Content Include="Content\Images\ajax-loader.gif" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
     <Content Include="Content\themes\base\autocomplete.css" />
@@ -406,7 +408,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Admin\Views\Shared\" />
-    <Folder Include="Content\Images\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

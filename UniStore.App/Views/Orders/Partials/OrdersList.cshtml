@@ -18,6 +18,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Orders[0].Total)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Orders[0].OrderStatus)
+            </th>
             <th></th>
         </tr>
 
@@ -60,8 +63,9 @@
                     @Html.DisplayFor(modelItem => order.Total)
                 </td>
                 <td>
-                    
+                    @Html.DisplayFor(modelItem => order.OrderStatus, "OrderStatus")
                 </td>
+                <td></td>
             </tr>
         }
 

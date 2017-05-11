@@ -118,6 +118,8 @@
     <Compile Include="EntityModels\ShoppingCart.cs" />
     <Compile Include="EntityModels\User.cs" />
     <Compile Include="Enums\AppRole.cs" />
+    <Compile Include="Enums\Enums.cs" />
+    <Compile Include="Enums\OrderStatus.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\Account\ExternalLoginConfirmationViewModel.cs" />
     <Compile Include="ViewModels\Account\ExternalLoginListViewModel.cs" />

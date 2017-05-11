@@ -72,13 +72,8 @@
 
             }
 
-
-
-
             pagination.Search = username;
-
             var ordersListVM = this.service.GetOrdersVM(pagination);
-
 
             return this.PartialView("Partials/OrdersList", ordersListVM);
         }

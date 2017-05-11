@@ -64,13 +64,13 @@ textarea { max-width: 280px; }
 }
 
 .ajax-loading {
-    /*background-image: linear-gradient(#54b4eb, #2fa4e7 60%, #1d9ce5);*/
-    background: linear-gradient(to right, yellow, red);
+
+    background: linear-gradient(to right, yellow, blueviolet);
     display: none;
-    /*background-size: 300% 100%;*/
     height: 4px;
     position: fixed;
     width: 100%;
+    z-index: 10000;
 }
 
 .my-nav ul {
@@ -169,7 +169,7 @@ a.submenu2:after { content: ""; }
 }
 #shopping-cart {
     margin-left: auto;
-    margin-right: 0px;
+    margin-right: 0;
 }
 
 .btn .badge {
@@ -184,4 +184,15 @@ a.submenu2:after { content: ""; }
 
 #upload-file-info {
     cursor: pointer;
+}
+
+.ui-dialog-titlebar-close:after {
+    content: "x";
+    color: red;
+    position: absolute;
+    margin: -12px 0 0 -3px;
+}
+
+.ui-dialog-titlebar-close:hover{
+    font-weight: bold;
 }

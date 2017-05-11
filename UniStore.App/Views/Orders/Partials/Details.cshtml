@@ -1,5 +1,6 @@
 ﻿@using UniStore.App.HtmlHelperExrensions
 @using UniStore.Models
+@using UniStore.Models.Enums
 @model UniStore.Models.ViewModels.Order.DetailsOrderVM
 
 <h4>Order: <strong>@Model.Order.Id</strong>/@Model.Order.Date</h4>
@@ -53,10 +54,18 @@
 </div>
 
 <div class="row">
-    @Html.LabelFor(model => model.Order.DeliveryAddress):
+    @Html.LabelFor(model => model.Order.DeliveryAddress): 
     <strong>@Html.DisplayFor(model => model.Order.DeliveryAddress)</strong>
 </div>
 <hr/>
+
+<div class="row">
+    @Html.LabelFor(model => model.Order.OrderStatus):  
+    <strong>@Html.DisplayFor(model => model.Order.OrderStatus)</strong>
+    <i> -> @Model.Order.OrderStatus.GetDescription())</i>
+</div>
+<hr />
+
 <div class="row">
     <div class="col-md-2 offset-5">
         @Ajax.ActionLink($"Buyer {Model.Order.User.UserName} orders", "OrdersList", "Orders",

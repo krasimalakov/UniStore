@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using EntityModels;
+    using Enums;
     using Purchase;
 
     public class OrderVM
@@ -19,5 +20,6 @@
 
         public string DeliveryAddress { get; set; }
 
+        public OrderStatus OrderStatus { get; set; }
     }
 }

@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.Linq;
+    using Enums;
 
     public class Order
     {
@@ -27,6 +28,8 @@
         [MinLength(15, ErrorMessage = "{0} must be at least {1} symbols long!")]
         public string DeliveryAddress { get; set; }
 
+        public OrderStatus OrderStatus { get; set; }
+        
         public decimal Total
         {
             get
